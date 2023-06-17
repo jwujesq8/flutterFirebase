@@ -1,6 +1,6 @@
-import 'package:lsm_project/auth.dart';
-import 'package:lsm_project/pages/homePage.dart';
-import 'package:lsm_project/pages/loginRegisterPage.dart';
+import 'package:lsm_project/app/services/auth.dart';
+import 'package:lsm_project/presentation/pages/homePage.dart';
+import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
 import 'package:flutter/material.dart';
 
 class TreeOfPages extends StatefulWidget{

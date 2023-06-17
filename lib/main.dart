@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lsm_project/treeOfPages.dart';
+import 'package:lsm_project/presentation/pages/auth/treeOfPages.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
