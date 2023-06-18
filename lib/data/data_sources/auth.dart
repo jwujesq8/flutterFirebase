@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lsm_project/data/data_sources/book_ds.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -13,6 +14,7 @@ class Auth {
         email: email,
         password: password,
     );
+
   }
   Future<void> createUserWithEmailAndPassword({
     required String email,
@@ -26,4 +28,5 @@ class Auth {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
 }

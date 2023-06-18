@@ -3,7 +3,7 @@ class Book {
   String title;
   String author;
   int? pages;
-  bool read;
+  bool? read;
   bool? like;
   String? opinion;
 
@@ -12,7 +12,7 @@ class Book {
     required this.title,
     required this.author,
     this.pages,
-    required this.read,
+    this.read,
     this.like,
     this.opinion
   });

@@ -2,12 +2,12 @@ import 'package:lsm_project/domain/entities/book.dart';
 
 abstract class BookRepository {
 
-  Future<List<Book>> getBooksList();
+  Future<List<Book>> getBooksList(String userId);
 
-  Future<Book> addBook(Book book);
+  Future<bool> addBook(Book book, String userId);
 
-  Future<int> removeBook(int booksId);
+  Future<bool> removeBook(Book book, String userId);
 
-  Future<Book> updateBooksInfo(int booksId);
+  Future<Book> updateBooksInfo(Book book);
 
 }
