@@ -12,12 +12,12 @@ class HomePage extends StatelessWidget{
   Widget userId(){
     return Text(user?.email ?? 'user email');
   }
-  Widget signOutButton(){
-    return ElevatedButton(
-        onPressed: signOut,
-        child: const Text('sign out'),
-    );
-  }
+  // Widget signOutButton(){
+  //   return ElevatedButton(
+  //       onPressed: signOut,
+  //       child: const Text('sign out'),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget{
         actions: [
           IconButton(
               onPressed: () {
-                signOutButton();
+                signOut();
               },
               icon: const Icon(Icons.logout))
         ],
