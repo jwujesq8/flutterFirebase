@@ -26,10 +26,10 @@ class BookModel{
       id: json['id'],
       title: json['title'],
       author: json['author'],
-      pages: json['pages'] ? json['pages'] : '',
-      read: json['read'] ? json['read'] : null,
-      like: json['like'] ? json['like'] : null,
-      opinion: json['opinion'] ? json['opinion'] : ''
+      pages: json['pages'] ?? '',
+      read: json['read'],
+      like: json['like'],
+      opinion: json['opinion'] ?? ''
     );
   }
 
@@ -43,5 +43,16 @@ class BookModel{
       like: like,
       opinion: opinion
     ));
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'pages': pages ?? '',
+      'read': read,
+      'like': like,
+      'opinion': opinion ?? ''
+    };
   }
 }
