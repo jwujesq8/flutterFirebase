@@ -54,8 +54,16 @@ class BookRepositoryImpl extends BookRepository {
   }
 
   @override
-  Future<PublicUser> getLichessUserInfo(String nickname) async {
-    var userModel = await _dataSource.getLichessUserInfo(nickname);
-    return userModel.toEntity();
+  Future<Book> updateBooksInfo(Book oldBook, Book newBook, String userId) async {
+    List<Book> library = _storage.read<List<Book>>('library$userId') ?? [];
+    if (!library.contains(oldBook)) {
+      return Book(id: '-', title: "-", author: "-");
+    } else {
+      library.remove(oldBook);
+      library.add(newBook);
+      _storage.write('libraty$userId', library);
+      //TODO: write new databsase after logout
+      return newBook;
+    }
   }
 }

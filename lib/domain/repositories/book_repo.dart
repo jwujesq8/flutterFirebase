@@ -8,6 +8,6 @@ abstract class BookRepository {
 
   Future<bool> removeBook(Book book, String userId);
 
-  Future<Book> updateBooksInfo(Book book);
+  Future<Book> updateBooksInfo(Book oldBook, Book newBook, String userId);
 
 }

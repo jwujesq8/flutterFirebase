@@ -32,7 +32,7 @@ class UpdateBooksInfo{
   final BookRepository _repository;
   UpdateBooksInfo(this._repository);
 
-  Future<Book> execute(Book book) async {
-    return await _repository.updateBooksInfo(book);
+  Future<Book> execute(Book oldBook, Book newBook, String userId) async {
+    return await _repository.updateBooksInfo(oldBook, newBook, userId);
   }
 }
