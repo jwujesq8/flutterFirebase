@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lsm_project/app/services/auth.dart';
+import 'package:lsm_project/data/data_sources/auth.dart';
 
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key: key);

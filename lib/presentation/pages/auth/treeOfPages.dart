@@ -1,4 +1,4 @@
-import 'package:lsm_project/app/services/auth.dart';
+import 'package:lsm_project/data/data_sources/auth.dart';
 import 'package:lsm_project/presentation/pages/homePage.dart';
 import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
 import 'package:flutter/material.dart';
