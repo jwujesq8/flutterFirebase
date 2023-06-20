@@ -7,16 +7,29 @@ import 'package:get_storage/get_storage.dart';
 class BookRepositoryImpl extends BookRepository {
   final BookDataSource _ds;
   final GetStorage _storage = GetStorage();
-  final library;
 
   BookRepositoryImpl(this._ds);
 
   @override
-  Future<bool> addBook(Book book, String userId) async {
-    if (){
+  Future<List<Book>> getBooksList(String userId) async {
+    var library = await _ds.getLibrary(userId);
+    _storage.write('library$userId', library);
+    return List<Book>.from(library as Iterable);
+  }
 
+  @override
+  Future<bool> addBook(Book book, String userId) async {
+
+    List<Book> library = [];
+    try {
+      List<Book> library = _storage.read('library$userId');
+    } on Exception catch (e) {
+      print("ERROR: $e");
+      return false;
     }
-    List<Book> library = await getBooksList(userId);
+    if (library.isEmpty) {
+      List<Book> library = await getBooksList(userId);
+    }
     if (library.contains(book)) {
       return false;
     } else {
@@ -25,13 +38,6 @@ class BookRepositoryImpl extends BookRepository {
       //TODO: add the book to the firebase database
       return true;
     }
-  }
-
-  @override
-  Future<List<Book>> getBooksList(String userId) async {
-    var library = await _ds.getLibrary(userId);
-    _storage.write('library$userId', library);
-    return List<Book>.from(library as Iterable);
   }
 
   @override
