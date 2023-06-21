@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lsm_project/data/data_sources/auth.dart';
+import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 
-class HomePage extends StatelessWidget{
-  HomePage({Key? key}) : super(key: key);
+import '../navigation_bar/custom_navigation_bar.dart';
 
-  final User? user = Auth().currentUser;
+class LibraryPage extends StatelessWidget{
+  LibraryPage({Key? key}) : super(key: key);
+
+  final User? user = FirebaseAuthSource().currentUser;
   Future<void> signOut() async {
-    await Auth().signOut();
+    await FirebaseAuthSource().signOut();
   }
   Widget userId(){
     return Text(user?.email ?? 'user email');
   }
-  // Widget signOutButton(){
-  //   return ElevatedButton(
-  //       onPressed: signOut,
-  //       child: const Text('sign out'),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Firebase auth'),
+        title: const Text('library'),
         actions: [
           IconButton(
               onPressed: () {
@@ -36,12 +32,15 @@ class HomePage extends StatelessWidget{
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            userId(),
-            
-          ],
+          children: [
+            const Text('some books later..'),
+            const Text('your login: '),
+            userId()
+          ]
+
         ),
       ),
+      bottomNavigationBar: CustomNavigationBar(),
 
 
     );
