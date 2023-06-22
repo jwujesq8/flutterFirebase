@@ -10,16 +10,26 @@ import '../auth/auth_controller.dart';
 import '../auth/loginRegisterPage.dart';
 import '../auth/treeOfPages.dart';
 
-class SettingsPage extends StatelessWidget{
-  SettingsPage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget{
+  const SettingsPage({Key? key}) : super (key:key);
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage>{
   //final HomeAppController bottomBarController = Get.find();
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
   final RxBool isLogin = true.obs;
+  RxBool changePage = false.obs;
 
   Future<void> signOut() async {
     _authController.signOut();
+  }
+  Future<void> goToLoginPage() async{
+    Get.to(const TreeOfPages());
   }
   Future<Widget> userId() async{
     var user = await _authController.getLoggedUser.execute();
@@ -30,13 +40,38 @@ class SettingsPage extends StatelessWidget{
     }
     //return Text(user?.email ?? 'user email');
   }
+  // Widget switchButtonForLogOut() {
+  //   return TextButton(
+  //       onPressed: (){
+  //         setState((){
+  //           changePage = !changePage;
+  //         });
+  //       },
+  //       child: Text(changePage ? 'go to Login Page': 'logOut')
+  //     );
+  // }
   Widget signOutButton(){
     return ElevatedButton(
         onPressed:() async{
           signOut;
-          Get.to(const TreeOfPages());
+          Get.to(() => const TreeOfPages());
         },
         child: const Text('sign out'),
+    );
+  }
+  Widget switchedButtonForLogOut(){
+    return ElevatedButton(
+        onPressed: () {
+          if(changePage.value == true){
+            print("inside changePage == true");
+            goToLoginPage();
+          } else {
+            signOut();
+          }
+          print(changePage.value);
+          changePage.value = !changePage.value;
+        },
+        child: Text (changePage.value==true ? 'go to Login Page' : 'log out')
     );
   }
 
@@ -70,7 +105,7 @@ class SettingsPage extends StatelessWidget{
                 }
               },
             ),
-            signOutButton(),
+            switchedButtonForLogOut(),
 
           ],
         ),
