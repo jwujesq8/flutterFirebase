@@ -38,18 +38,7 @@ class _SettingsPageState extends State<SettingsPage>{
     } else {
       return const Text("oops...");
     }
-    //return Text(user?.email ?? 'user email');
   }
-  // Widget switchButtonForLogOut() {
-  //   return TextButton(
-  //       onPressed: (){
-  //         setState((){
-  //           changePage = !changePage;
-  //         });
-  //       },
-  //       child: Text(changePage ? 'go to Login Page': 'logOut')
-  //     );
-  // }
   Widget signOutButton(){
     return ElevatedButton(
         onPressed:() async{
@@ -60,19 +49,17 @@ class _SettingsPageState extends State<SettingsPage>{
     );
   }
   Widget switchedButtonForLogOut(){
-    return ElevatedButton(
-        onPressed: () {
-          if(changePage.value == true){
-            print("inside changePage == true");
-            goToLoginPage();
-          } else {
-            signOut();
-          }
-          print(changePage.value);
-          changePage.value = !changePage.value;
-        },
-        child: Text (changePage.value==true ? 'go to Login Page' : 'log out')
-    );
+    return Obx(() => ElevatedButton(
+      onPressed: () {
+        if(changePage.value == true){
+          goToLoginPage();
+        } else {
+          signOut();
+        }
+        changePage.toggle();
+      },
+      child: Text(changePage.value ? 'go back' : 'log out'),
+    ));
   }
 
   @override
