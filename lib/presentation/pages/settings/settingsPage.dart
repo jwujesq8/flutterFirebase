@@ -8,6 +8,7 @@ import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_
 
 import '../auth/auth_controller.dart';
 import '../auth/loginRegisterPage.dart';
+import '../auth/treeOfPages.dart';
 
 class SettingsPage extends StatelessWidget{
   SettingsPage({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class SettingsPage extends StatelessWidget{
     return ElevatedButton(
         onPressed:() async{
           signOut;
-          Get.to(const LoginPage());
+          Get.to(const TreeOfPages());
         },
         child: const Text('sign out'),
     );
