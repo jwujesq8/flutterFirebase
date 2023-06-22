@@ -6,21 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_bar.dart';
 
+import '../auth/auth_controller.dart';
+import '../auth/loginRegisterPage.dart';
+
 class SettingsPage extends StatelessWidget{
   SettingsPage({Key? key}) : super(key: key);
   //final HomeAppController bottomBarController = Get.find();
 
-  final User? user = FirebaseAuthSource().currentUser;
+  //final User? user = FirebaseAuthSource().currentUser;
+  final _authController = Get.find<AuthController>();
+  final RxBool isLogin = true.obs;
 
   Future<void> signOut() async {
-    await FirebaseAuthSource().signOut();
+    _authController.signOut();
   }
-  Widget userId(){
-    return Text(user?.email ?? 'user email');
+  Future<Widget> userId() async{
+    var user = await _authController.getLoggedUser.execute();
+    if (user != null){
+      return Text(user.email);
+    } else {
+      return const Text("oops...");
+    }
+    //return Text(user?.email ?? 'user email');
   }
   Widget signOutButton(){
     return ElevatedButton(
-        onPressed: signOut,
+        onPressed:() async{
+          signOut;
+          Get.to(const LoginPage());
+        },
         child: const Text('sign out'),
     );
   }
@@ -43,12 +57,24 @@ class SettingsPage extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            userId(),
-            signOutButton()
+            FutureBuilder<Widget>(
+              future: userId(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return snapshot.data ?? const Text('Oops...');
+                }
+              },
+            ),
+            signOutButton(),
+
           ],
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(),
+      bottomNavigationBar: const CustomNavigationBar(),
 
     );
   }

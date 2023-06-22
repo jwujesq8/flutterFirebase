@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
 import 'package:lsm_project/presentation/pages/auth/treeOfPages.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lsm_project/app/config/routing.dart' as App;

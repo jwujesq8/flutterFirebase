@@ -1,4 +1,5 @@
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
+import 'package:lsm_project/domain/usecases/get_logged_user.dart';
 import 'package:lsm_project/presentation/pages/home/homePage.dart';
 import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
 import '../../../domain/usecases/get_books_list_usecase.dart';
@@ -21,6 +22,7 @@ class _TreeOfPagesState extends State<TreeOfPages> {
         loginUserUsecase: Get.put(LoginUserUsecase(Get.find())),
         getBooksList: Get.put(GetBooksList(Get.find())),
         signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
+        getLoggedUser: Get.put(GetLoggedUser(Get.find()))
       ),);// Initialize AuthController using Get.put
 
   @override

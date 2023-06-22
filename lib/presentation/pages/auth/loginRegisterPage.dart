@@ -4,6 +4,11 @@ import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/pages/auth/auth_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/usecases/get_books_list_usecase.dart';
+import '../../../domain/usecases/get_logged_user.dart';
+import '../../../domain/usecases/login_user.dart';
+import '../../../domain/usecases/sign_out_user_usecase.dart';
+
 class LoginPage extends StatefulWidget{
   const LoginPage({Key? key}) :super (key: key);
 
@@ -14,15 +19,13 @@ class LoginPage extends StatefulWidget{
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final authController = Get.find<AuthController>();
   String? errorMessage = '';
   bool isLogin = true;
+  final _authController = Get.find<AuthController>();
 
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await FirebaseAuthSource().signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text);
+      await _authController.loginUserUsecase.execute(_emailController.text, _passwordController.text);
     } on FirebaseAuthException catch(e) {
       setState(() {
         errorMessage = e.message;
@@ -71,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('firebase auth'),

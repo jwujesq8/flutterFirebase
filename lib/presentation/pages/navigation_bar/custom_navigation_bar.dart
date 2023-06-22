@@ -21,21 +21,21 @@ class CustomNavigationBar extends StatelessWidget {
                 icon: Icons.collections_bookmark_sharp,
                 text: "library",
                 onPressed: () {
-                  Get.toNamed("/library");
+                  Get.offAllNamed("/library");
                 },
               ),
               BarButton(
                 icon: Icons.hotel_class_rounded,
                 text: "home",
                 onPressed: () {
-                  Get.toNamed("/home");
+                  Get.offAllNamed("/home");
                 },
               ),
               BarButton(
                 icon: Icons.adb_sharp,
                 text: "settings",
                 onPressed: () {
-                  Get.toNamed("/settings");
+                  Get.offAllNamed("/settings");
                 },
               ),
             ],
