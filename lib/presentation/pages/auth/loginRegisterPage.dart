@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lsm_project/data/data_sources/auth.dart';
+import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
+import 'package:lsm_project/presentation/pages/auth/auth_controller.dart';
+import 'package:get/get.dart';
+
+import '../../../domain/usecases/get_books_list_usecase.dart';
+import '../../../domain/usecases/get_logged_user.dart';
+import '../../../domain/usecases/login_user.dart';
+import '../../../domain/usecases/sign_out_user_usecase.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({Key? key}) :super (key: key);
@@ -14,12 +21,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   String? errorMessage = '';
   bool isLogin = true;
+  final _authController = Get.find<AuthController>();
 
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await Auth().signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text);
+      await _authController.loginUserUsecase.execute(_emailController.text, _passwordController.text);
     } on FirebaseAuthException catch(e) {
       setState(() {
         errorMessage = e.message;
@@ -28,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   }
   Future<void> createUserWithEmailAndPassword() async{
     try {
-      await Auth().createUserWithEmailAndPassword(
+      await FirebaseAuthSource().createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text);
     } on FirebaseAuthException catch(e) {
