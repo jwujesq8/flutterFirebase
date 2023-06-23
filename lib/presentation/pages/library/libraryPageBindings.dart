@@ -1,21 +1,29 @@
 import 'package:get/get.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 
+import '../../../domain/usecases/add_book_usecase.dart';
 import '../../../domain/usecases/get_books_list_usecase.dart';
 import '../../../domain/usecases/get_logged_user.dart';
 import '../../../domain/usecases/login_user.dart';
+import '../../../domain/usecases/remove_book_usecase.dart';
+import '../../../domain/usecases/save_library_before_logout_usecase.dart';
 import '../../../domain/usecases/sign_out_user_usecase.dart';
+import '../../../domain/usecases/update_books_info_usecase.dart';
 import '../auth/auth_controller.dart';
 
 class LibraryPageBindings extends Bindings {
   @override
   void dependencies() {
+    Get.put(LoginUserUsecase(Get.find()));
+    Get.put(GetBooksList(Get.find()));
+    Get.put(SignOutUserUsecase(Get.find()));
+    Get.put(GetLoggedUser(Get.find()));
     Get.put(
       AuthController(
-          loginUserUsecase: Get.put(LoginUserUsecase(Get.find())),
-          getBooksList: Get.put(GetBooksList(Get.find())),
-          signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
-          getLoggedUser: Get.put(GetLoggedUser(Get.find()))
+          loginUserUsecase: Get.put(Get.find()),
+          getBooksList: Get.put(Get.find()),
+          signOutUserUsecase: Get.put(Get.find()),
+          getLoggedUser: Get.put(Get.find())
       ),);
   }
 }

@@ -22,27 +22,10 @@ class AuthController extends GetxController {
     required this.getLoggedUser
   });
 
-  final Rx<AuthUser?> _user = Rx<AuthUser?>(null);
+  final Rx<AuthUser> _user = AuthUser(email: '', password: '').obs;
   final RxList<Book?> _list = <Book?>[].obs;
 
-  //AuthUser? get user => _user.value;
-
-  @override
-  void onInit() async {
-    super.onInit();
-    _user.value =
-    await loginUserUsecase.execute(_user.value?.email, _user.value?.password);
-    _list.value = await getBooksList.execute(_user.value?.email ?? '');
-  }
-
-  void signOut() async {
-
-    _user.close();
-    _list.close();
-    onClose();
-    await signOutUserUsecase.execute();
-  }
-
+  AuthUser? get user => _user.value;
   @override
   void onClose() async {
     super.onClose();
@@ -50,4 +33,41 @@ class AuthController extends GetxController {
     _user.close();
     _list.close();
   }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    var user = await getLoggedUser.execute();
+    if(user.email.isNotEmpty){
+      _user.value = AuthUser(email: user.email, password: user.password);
+      _list.value = await getBooksList.execute(_user.value.email);
+    }
+    else {
+      onClose();
+    }
+  }
+
+  void signOut() async {
+    _user.value.email = '';
+    _user.value.password = '';
+    _list.close();
+    onClose();
+    await signOutUserUsecase.execute();
+  }
+
+  Future<bool> signIn(String email, String password) async {
+    var user = await loginUserUsecase.execute(email, password);
+    _user.value.email = user.email;
+    _user.value.password = user.password;
+    print("TUUUUUUT");
+    print(user.email);
+     if(_user.value.email.isNotEmpty){
+       return true;
+     } else {
+       return false;
+     }
+  }
+
+
+
 }

@@ -6,7 +6,7 @@ class FirebaseAuthSource {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  AuthUser? getLoggedUser() {
+  AuthUser getLoggedUser() {
     var currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       print(currentUser.email);
@@ -15,25 +15,18 @@ class FirebaseAuthSource {
         password: '',
       );
     }
-    return null;
+    return AuthUser(email: '-', password: '-');
   }
 
-  Future<FirebaseAuthUserModel?> signInWithEmailAndPassword({
-    String? email,
-    String? password,
-  }) async {
-    if(email == null && password == null){
-      var user = getLoggedUser();
-      if(user != null) {
-        email = user.email;
-        password = user.password;
-      }
-    }
-    await _firebaseAuth.signInWithEmailAndPassword(
-        email: email ?? '',
-        password: password ?? '',
+  Future<FirebaseAuthUserModel> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+    }) async {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
     );
-    return FirebaseAuthUserModel(email: email ?? '', password: password ?? '');
+    return FirebaseAuthUserModel(email: email, password: password);
 
   }
   Future<void> createUserWithEmailAndPassword({

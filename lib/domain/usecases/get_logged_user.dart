@@ -5,7 +5,7 @@ class GetLoggedUser {
   final AuthRepository _repository;
   GetLoggedUser(this._repository);
 
-  Future<AuthUser?> execute() async {
+  Future<AuthUser> execute() async {
     return await _repository.getLoggedUser();
   }
 }

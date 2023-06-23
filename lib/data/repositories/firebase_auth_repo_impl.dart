@@ -8,25 +8,16 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
   FirebaseAuthRepositoryImpl(this._dataSource);
 
   @override
-  Future<AuthUser?> getLoggedUser() async {
+  Future<AuthUser> getLoggedUser() async {
     var user = _dataSource.getLoggedUser();
-    if (user != null) {
-      return user;
-    } else {
-      return null;
-    }
+    return user;
   }
 
   @override
-  Future<AuthUser?> signInWithEmailAndPassword(String? email, String? password) async {
-
-    var user = await _dataSource.signInWithEmailAndPassword(email: email, password: password);
-    if(user != null) {
-      return user.toEntity();
-    }
-    else {
-      return null;
-    }
+  Future<AuthUser> signInWithEmailAndPassword(String email, String password) async {
+    var user = await _dataSource.signInWithEmailAndPassword(
+        email: email, password: password);
+    return user.toEntity();
   }
 
   @override
@@ -37,6 +28,9 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signOut() async{
-    await _dataSource.signOut();
+    var user = _dataSource.getLoggedUser();
+    if(user.email.isNotEmpty){
+      await _dataSource.signOut();
+    }
   }
 }

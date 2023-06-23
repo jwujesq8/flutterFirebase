@@ -25,7 +25,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await _authController.loginUserUsecase.execute(_emailController.text, _passwordController.text);
+      var answer = await _authController.signIn(_emailController.text, _passwordController.text);
+      print(answer);
+      if (answer){
+        Get.offAllNamed('/home');
+      }
     } on FirebaseAuthException catch(e) {
       setState(() {
         errorMessage = e.message;
