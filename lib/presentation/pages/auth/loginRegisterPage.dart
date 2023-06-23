@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text('firebase auth'),
       ),
       body: Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

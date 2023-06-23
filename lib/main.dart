@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       //title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.indigo
-        // useMaterial3: true,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.primaries[16]),
       ),
       initialRoute: '/',
       getPages: App.Routing,

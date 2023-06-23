@@ -43,11 +43,11 @@ class AuthController extends GetxController {
     await signOutUserUsecase.execute();
   }
 
-  // @override
-  // void onClose() async {
-  //   super.onClose();
-  //   await signOutUserUsecase.execute();
-  //   _user.close();
-  //   _list.close();
-  // }
+  @override
+  void onClose() async {
+    super.onClose();
+    await signOutUserUsecase.execute();
+    _user.close();
+    _list.close();
+  }
 }
