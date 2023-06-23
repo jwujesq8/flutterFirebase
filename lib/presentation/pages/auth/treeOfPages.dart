@@ -13,24 +13,22 @@ class TreeOfPages extends StatefulWidget {
   const TreeOfPages({Key? key}) : super(key: key);
 
   @override
-  State<TreeOfPages> createState() => _TreeOfPagesState();
+  State<TreeOfPages> createState() => _TreeOfPagesState(dataSource: FirebaseAuthSource());
 }
 
 class _TreeOfPagesState extends State<TreeOfPages> {
-  final _authController = Get.put(
-      AuthController(
-        loginUserUsecase: Get.put(LoginUserUsecase(Get.find())),
-        getBooksList: Get.put(GetBooksList(Get.find())),
-        signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
-        getLoggedUser: Get.put(GetLoggedUser(Get.find()))
-      ),);// Initialize AuthController using Get.put
+  final AuthController _authController = Get.find();// Initialize AuthController using Get.put
+  final FirebaseAuthSource dataSource;
+  _TreeOfPagesState({
+    required this.dataSource,
+});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuthSource().authStateChanges,
+      stream: dataSource.authStateChanges,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && dataSource.getLoggedUser() != null) {
           return HomePage();
         } else {
           return const LoginPage();

@@ -14,14 +14,14 @@ class BookRepositoryImpl extends BookRepository {
   @override
   Future<List<Book>> getBooksList(String userId) async {
     var library = await _ds.getLibrary(userId);
-    _storage.write('library$userId', library);
+    _storage.write('library_$userId', library);
     return List<Book>.from(library);
   }
 
   @override
   Future<bool> addBook(Book book, String userId) async {
-    List<Book> library = _storage.read('library$userId') ?? [];
-    List<Book> addedBooks = _storage.read('addedBooks$userId') ?? [];
+    List<Book> library = _storage.read('library_$userId') ?? [];
+    List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
     if (library.isEmpty) {
       library = await getBooksList(userId);
     }
@@ -29,10 +29,10 @@ class BookRepositoryImpl extends BookRepository {
       return false;
     } else {
       library.add(book);
-      _storage.write('library$userId', library);
+      _storage.write('library_$userId', library);
       if(!addedBooks.contains(book)){
         addedBooks.add(book);
-        _storage.write('addedBooks$userId', book);
+        _storage.write('addedBooks_$userId', book);
       }
       return true;
     }
@@ -40,45 +40,45 @@ class BookRepositoryImpl extends BookRepository {
 
   @override
   Future<bool> removeBook(Book book, String userId) async {
-    List<Book> library = _storage.read<List<Book>>('library$userId') ?? [];
-    List<Book> removedBooks = _storage.read('removedBooks$userId') ?? [];
+    List<Book> library = _storage.read<List<Book>>('library_$userId') ?? [];
+    List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
     if (!library.contains(book)) {
       return false;
     } else {
       library.remove(book);
       removedBooks.add(book);
-      _storage.write('library$userId', library);
-      _storage.write('removedBooks$userId', removedBooks);
+      _storage.write('library_$userId', library);
+      _storage.write('removedBooks_$userId', removedBooks);
       return true;
     }
   }
 
   @override
   Future<Book> updateBooksInfo(Book oldBook, Book newBook, String userId) async {
-    List<Book> library = _storage.read('library$userId') ?? [];
-    List<Book> removedBooks = _storage.read('removedBooks$userId') ?? [];
-    List<Book> addedBooks = _storage.read('addedBooks$userId') ?? [];
+    List<Book> library = _storage.read('library_$userId') ?? [];
+    List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
+    List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
     if (!library.contains(oldBook)) {
       return Book(id: '-', title: "-", author: "-");
     } else {
       library.remove(oldBook);
       library.add(newBook);
-      _storage.write('library$userId', library);
+      _storage.write('library_$userId', library);
 
       removedBooks.add(oldBook);
-      _storage.write('removedBooks$userId', removedBooks);
+      _storage.write('removedBooks_$userId', removedBooks);
 
       addedBooks.add(newBook);
-      _storage.write('addedBooks$userId', addedBooks);
+      _storage.write('addedBooks_$userId', addedBooks);
       return newBook;
     }
   }
 
   @override
   Future<bool> saveLibraryBeforeLogout(String userId) async {
-    final removedBooks = _storage.read('removedBooks$userId') ?? [];
-    final addedBooks = _storage.read('addedBooks$userId') ?? [];
-    final ref = _ds.getFirestoreCollection('library$userId');
+    final removedBooks = _storage.read('removedBooks_$userId') ?? [];
+    final addedBooks = _storage.read('addedBooks_$userId') ?? [];
+    final ref = _ds.getFirestoreCollection('library_$userId');
 
     for(BookModel removedBook in removedBooks){
       DocumentReference<Map<String, dynamic>> removedBookRef =
