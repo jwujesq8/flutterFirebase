@@ -11,6 +11,7 @@ class EditLibraryPage extends StatelessWidget{
   EditLibraryPage({Key? key}) : super(key: key);
   final _authController = Get.find<AuthController>();
 
+
   List<Book> books = [
     Book(id: '0', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
         read: true, like: true, opinion: "I want to read it again)"),
@@ -63,7 +64,7 @@ class EditLibraryPage extends StatelessWidget{
               ),
             ),
             Container(
-                margin: EdgeInsets.only(left:14),
+                margin: const EdgeInsets.only(left:14),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -91,7 +92,7 @@ class EditLibraryPage extends StatelessWidget{
   }
 
   Future<void> toEditLibrary() async{
-    Get.offAllNamed("/editLibrary");
+    Get.offAllNamed('/editLibrary');
   }
 
 
@@ -113,19 +114,7 @@ class EditLibraryPage extends StatelessWidget{
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // const Text('your login: '),
-              //FutureBuilder<Widget>(
-              //   future: userId(),
-              //   builder: (context, snapshot) {
-              //     if (snapshot.connectionState == ConnectionState.waiting) {
-              //       return const CircularProgressIndicator();
-              //     } else if (snapshot.hasError) {
-              //       return Text('Error: ${snapshot.error}');
-              //     } else {
-              //       return snapshot.data ?? const Text('Oops...');
-              //     }
-              //   },
-              // ),
+
               Expanded(
                 child: ListView.builder(
                   itemCount: books.length,
@@ -145,3 +134,16 @@ class EditLibraryPage extends StatelessWidget{
   }
 
 }
+// const Text('your login: '),
+//FutureBuilder<Widget>(
+//   future: userId(),
+//   builder: (context, snapshot) {
+//     if (snapshot.connectionState == ConnectionState.waiting) {
+//       return const CircularProgressIndicator();
+//     } else if (snapshot.hasError) {
+//       return Text('Error: ${snapshot.error}');
+//     } else {
+//       return snapshot.data ?? const Text('Oops...');
+//     }
+//   },
+// ),

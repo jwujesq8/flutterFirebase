@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lsm_project/domain/entities/book.dart';
 
 class BookModel{
@@ -21,15 +22,16 @@ class BookModel{
     this.opinion
   });
 
-  factory BookModel.fromJson(Map<Object, dynamic> json) {
+  factory BookModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json) {
+    final data = json.data()!;
     return BookModel(
-      id: json['id'],
-      title: json['title'],
-      author: json['author'],
-      pages: json['pages'] ?? '',
-      read: json['read'],
-      like: json['like'],
-      opinion: json['opinion'] ?? ''
+      id: json.id,
+      title: data["title"],
+      author: data["author"],
+      pages: data["pages"] ?? '',
+      read: data["read"],
+      like: data["like"],
+      opinion: data["opinion"] ?? ''
     );
   }
 

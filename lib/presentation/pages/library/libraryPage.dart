@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
+import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
 import '../../../domain/entities/book.dart';
 import '../auth/auth_controller.dart';
@@ -10,33 +11,42 @@ import '../navigation_bar/custom_navigation_bar.dart';
 class LibraryPage extends StatelessWidget{
   LibraryPage({Key? key}) : super(key: key);
   final _authController = Get.find<AuthController>();
+  final _bookController = Get.find<BookController>();
+  RxInt booksLength = 0.obs;
+  RxList<Book> books = <Book>[].obs;
 
-  List<Book> books = [
-    Book(id: '0', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-      read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '1', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '2', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '3', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '4', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-  ];
+  // List<Book> books = [
+  //   Book(id: '0', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
+  //     read: true, like: true, opinion: "I want to read it again)"),
+  //   Book(id: '1', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
+  //       read: true, like: true, opinion: "I want to read it again)"),
+  //   Book(id: '2', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
+  //       read: true, like: true, opinion: "I want to read it again)"),
+  //   Book(id: '3', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
+  //       read: true, like: true, opinion: "I want to read it again)"),
+  //   Book(id: '4', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
+  //       read: true, like: true, opinion: "I want to read it again)"),
+  // ];
 
   //final User? user = FirebaseAuthSource().currentUser;
   Future<void> signOut() async {
     await _authController.signOutUserUsecase.execute();
   }
-  Future<Widget> userId() async{
+  Future<String> userId() async{
     var user = await _authController.getLoggedUser.execute();
-    if (user != null){
-      return Text(user.email);
-    } else {
-      return const Text("oops...");
-    }
+    return user.email;
     //return Text(user?.email ?? 'user email');
   }
+
+  Future<void> getLibrary() async {
+    var userId = await _bookController.getLoggedUsername();
+    List<Book> library = await _bookController.getLibrary(userId.email);
+    books.value = library;
+    print("LIBRARY:");
+    print(library);
+  }
+
+
 
   Widget createBooksCard(Book book) {
     return Card(
@@ -97,6 +107,8 @@ class LibraryPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    getLibrary();
+    print(books);
     return Scaffold(
       appBar: AppBar(
         title: const Text('library'),
@@ -127,12 +139,12 @@ class LibraryPage extends StatelessWidget{
             //   },
             // ),
             Expanded(
-              child: ListView.builder(
+              child: Obx(() => ListView.builder(
                 itemCount: books.length,
                 itemBuilder: (context, index) {
                   return createBooksCard(books[index]);
                 },
-              ),
+              ),)
             ),
           ]
 

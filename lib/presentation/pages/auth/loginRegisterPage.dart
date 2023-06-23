@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> signInWithEmailAndPassword() async {
     try {
       var answer = await _authController.signIn(_emailController.text, _passwordController.text);
-      print(answer);
       if (answer){
         Get.offAllNamed('/home');
       }

@@ -26,7 +26,6 @@ class _TreeOfPagesState extends State<TreeOfPages> {
   Widget build(BuildContext context) {
     return Obx(() {
       final user = _authController.user;
-
       if (user != null && user.email.isNotEmpty) {
         print(user.email);
         return HomePage();

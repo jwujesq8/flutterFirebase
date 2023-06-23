@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 
 import '../../../domain/usecases/add_book_usecase.dart';
@@ -18,12 +19,22 @@ class LibraryPageBindings extends Bindings {
     Get.put(GetBooksList(Get.find()));
     Get.put(SignOutUserUsecase(Get.find()));
     Get.put(GetLoggedUser(Get.find()));
-    Get.put(
-      AuthController(
+    Get.put(AuthController(
           loginUserUsecase: Get.put(Get.find()),
           getBooksList: Get.put(Get.find()),
           signOutUserUsecase: Get.put(Get.find()),
           getLoggedUser: Get.put(Get.find())
       ),);
+    Get.put(BookController(
+        addBook: Get.put(AddBook(Get.find())),
+        getBooksList: Get.put(Get.find()),
+        getLoggedUser: Get.put(Get.find()),
+        loginUserUsecase: Get.put(Get.find()),
+        removeBook: Get.put(RemoveBook(Get.find())),
+        saveLibraryBeforeLogout: Get.put(SaveLibraryBeforeLogout(Get.find())),
+        signOutUserUsecase: Get.put(Get.find()),
+        updateBooksInfo: Get.put(UpdateBooksInfo(Get.find()))
+      ));
+
   }
 }

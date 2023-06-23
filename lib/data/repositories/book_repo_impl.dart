@@ -15,7 +15,10 @@ class BookRepositoryImpl extends BookRepository {
   Future<List<Book>> getBooksList(String userId) async {
     var library = await _ds.getLibrary(userId);
     _storage.write('library_$userId', library);
-    return List<Book>.from(library);
+    print("LIBRARY FROM REPO_IMPPL");
+    print(library);
+    return library;
+    //return List<Book>.from(library);
   }
 
   @override

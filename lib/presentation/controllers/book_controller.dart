@@ -72,7 +72,7 @@ class BookController extends GetxController {
   Future<AuthUser> loginUser(String email, String password) async {
     if(email.isNotEmpty && password.isNotEmpty){
       var user = await loginUserUsecase.execute(email, password);
-      return user as AuthUser;
+      return user;
     }
     else{
       return AuthUser(email: '', password: '');

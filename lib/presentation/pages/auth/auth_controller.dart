@@ -59,8 +59,6 @@ class AuthController extends GetxController {
     var user = await loginUserUsecase.execute(email, password);
     _user.value.email = user.email;
     _user.value.password = user.password;
-    print("TUUUUUUT");
-    print(user.email);
      if(_user.value.email.isNotEmpty){
        return true;
      } else {
