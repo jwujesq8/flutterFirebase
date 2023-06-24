@@ -25,7 +25,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await _authController.loginUserUsecase.execute(_emailController.text, _passwordController.text);
+      var answer = await _authController.signIn(_emailController.text, _passwordController.text);
+      if (answer){
+        Get.offAllNamed('/home');
+      }
     } on FirebaseAuthException catch(e) {
       setState(() {
         errorMessage = e.message;
@@ -79,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text('firebase auth'),
       ),
       body: Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -29,7 +29,8 @@ class _SettingsPageState extends State<SettingsPage>{
     _authController.signOut();
   }
   Future<void> goToLoginPage() async{
-    Get.to(const TreeOfPages());
+    //Get.to(const TreeOfPages());
+    Get.offAllNamed('/recognize');
   }
   Future<Widget> userId() async{
     var user = await _authController.getLoggedUser.execute();
