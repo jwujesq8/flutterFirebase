@@ -13,20 +13,25 @@ class BookRepositoryImpl extends BookRepository {
 
   @override
   Future<List<Book>> getBooksList(String userId) async {
-    var library = await _ds.getLibrary(userId);
-    _storage.write('library_$userId', library);
-    print("LIBRARY FROM REPO_IMPPL");
-    print(library);
+    //mode = 0: start
+    //mode = 1: while working
+    var library;
+    if(mode == 0){
+      var library = await _ds.getLibrary(userId);
+      _storage.write('library_$userId', library);
+    } else {
+      var library = _storage.read('library_$userId');
+    }
     return library;
-    //return List<Book>.from(library);
   }
 
   @override
   Future<bool> addBook(Book book, String userId) async {
     List<Book> library = _storage.read('library_$userId') ?? [];
+
     List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
     if (library.isEmpty) {
-      library = await getBooksList(userId);
+      library = await getBooksList(userId, 1);
     }
     if (library.contains(book)) {
       return false;
@@ -37,6 +42,7 @@ class BookRepositoryImpl extends BookRepository {
         addedBooks.add(book);
         _storage.write('addedBooks_$userId', book);
       }
+      print(library);
       return true;
     }
   }

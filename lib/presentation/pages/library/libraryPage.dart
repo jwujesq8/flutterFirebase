@@ -42,8 +42,6 @@ class LibraryPage extends StatelessWidget{
     var userId = await _bookController.getLoggedUsername();
     List<Book> library = await _bookController.getLibrary(userId.email);
     books.value = library;
-    print("LIBRARY:");
-    print(library);
   }
 
 
@@ -101,7 +99,7 @@ class LibraryPage extends StatelessWidget{
   }
 
   Future<void> toEditLibrary() async{
-    Get.offAllNamed("/editLibrary");
+    Get.toNamed('/editLibrary');
   }
 
 

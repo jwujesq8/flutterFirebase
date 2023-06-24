@@ -40,7 +40,7 @@ class AuthController extends GetxController {
     var user = await getLoggedUser.execute();
     if(user.email.isNotEmpty){
       _user.value = AuthUser(email: user.email, password: user.password);
-      _list.value = await getBooksList.execute(_user.value.email);
+      _list.value = await getBooksList.execute(_user.value.email, 0);
     }
     else {
       onClose();

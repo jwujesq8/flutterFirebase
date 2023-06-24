@@ -7,6 +7,7 @@ import 'package:lsm_project/presentation/pages/home/homePageBindings.dart';
 import 'package:lsm_project/presentation/pages/library/libraryPage.dart';
 import 'package:lsm_project/presentation/pages/library/libraryPageBindings.dart';
 
+import '../../presentation/pages/library/editLibrary/addNewBookPage.dart';
 import '../../presentation/pages/library/editLibrary/editLibrary.dart';
 import '../../presentation/pages/library/editLibrary/editLibraryBindings.dart';
 import '../../presentation/pages/settings/settingsPage.dart';
@@ -29,6 +30,12 @@ List<GetPage<dynamic>> get Routing{
     GetPage(
       name: '/editLibrary',
       page: () => EditLibraryPage(),
+      transition: Transition.fadeIn,
+      binding: EditLibraryBindings(),
+    ),
+    GetPage(
+      name: '/addNewBook',
+      page: () => AddNewBookPage(),
       transition: Transition.fadeIn,
       binding: EditLibraryBindings(),
     ),

@@ -5,7 +5,7 @@ class GetBooksList {
   final BookRepository _repository;
   GetBooksList(this._repository);
 
-  Future<List<Book>> execute(String userId) async {
-    return await _repository.getBooksList(userId);
+  Future<List<Book>> execute(String userId, int mode) async {
+    return await _repository.getBooksList(userId, mode);
   }
 }

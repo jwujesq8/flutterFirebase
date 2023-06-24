@@ -41,6 +41,7 @@ dependencies:
   get_storage:
   cloud_firestore: ^4.8.1
   get: ^4.6.5
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

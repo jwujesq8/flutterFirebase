@@ -41,7 +41,7 @@ class BookController extends GetxController {
   void onInit() async {
     super.onInit();
     var user = await getLoggedUser.execute();
-    _list.value = await getBooksList.execute(user.email);
+    _list.value = await getBooksList.execute(user.email, 0);
     }
 
   @override
