@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lsm_project/domain/entities/auth_user.dart';
+import 'package:lsm_project/domain/usecases/getExistingBooksList.dart';
 import 'package:lsm_project/domain/usecases/login_user.dart';
 import 'package:lsm_project/domain/usecases/get_books_list_usecase.dart';
 import 'package:lsm_project/domain/entities/book.dart';
@@ -13,7 +14,7 @@ import '../pages/auth/auth_controller.dart';
 
 class BookController extends GetxController {
   AddBook addBook;
-  GetBooksList getBooksList;
+  GetExistingBooksList getExistingBooksList;
   GetLoggedUser getLoggedUser;
   LoginUserUsecase loginUserUsecase;
   RemoveBook removeBook;
@@ -23,7 +24,7 @@ class BookController extends GetxController {
 
   BookController({
     required this.addBook,
-    required this.getBooksList,
+    required this.getExistingBooksList,
     required this.getLoggedUser,
     required this.loginUserUsecase,
     required this.removeBook,
@@ -41,7 +42,7 @@ class BookController extends GetxController {
   void onInit() async {
     super.onInit();
     var user = await getLoggedUser.execute();
-    _list.value = await getBooksList.execute(user.email);
+    _list.value = await getExistingBooksList.execute(user.email);
     }
 
   @override
@@ -59,9 +60,9 @@ class BookController extends GetxController {
     }
     return false;
   }
-  Future<List<Book>> getLibrary(String userId) async {
+  Future<List<Book>> getExistingLibrary(String userId) async {
     if(userId.isNotEmpty){
-      _list.value = await getBooksList.execute(userId);
+      _list.value = await getExistingBooksList.execute(userId);
       return _list.value;
     }
     return [];

@@ -12,19 +12,16 @@ class BookRepositoryImpl extends BookRepository {
   BookRepositoryImpl(this._ds);
 
   @override
-  Future<List<Book>> getBooksList(String userId) async {
-    //mode = 0: start
-    //mode = 1: while working
-    // var library;
-    // if(mode == 0){
-    //
-    // } else {
-    //   var library = _storage.read('library_$userId');
-    // }
-    // return library;
+  Future<List<Book>> getFirstBooksList(String userId) async {
 
     var library = await _ds.getLibrary(userId);
     _storage.write('library_$userId', library);
+    return library;
+  }
+
+  @override
+  Future<List<Book>> getExistingBooksList(String userId) async {
+    var library = _storage.read('library_$userId');
     return library;
   }
 
@@ -33,9 +30,9 @@ class BookRepositoryImpl extends BookRepository {
     List<Book> library = _storage.read('library_$userId') ?? [];
 
     List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
-    if (library.isEmpty) {
-      library = await getBooksList(userId);
-    }
+    // if (library.isEmpty) {
+    //   library = await getBooksList(userId);
+    // }
     if (library.contains(book)) {
       return false;
     } else {

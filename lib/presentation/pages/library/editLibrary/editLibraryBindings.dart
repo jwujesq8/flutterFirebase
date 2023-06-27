@@ -15,7 +15,7 @@ class EditLibraryBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(AddBook(Get.find()));
-    Get.put(GetBooksList(Get.find()));
+    Get.put(GetFirstBooksList(Get.find()));
     Get.put(GetLoggedUser(Get.find()));
     Get.put(LoginUserUsecase(Get.find()));
     Get.put(RemoveBook(Get.find()));
@@ -25,7 +25,7 @@ class EditLibraryBindings extends Bindings {
     Get.put(
       AuthController(
           loginUserUsecase: Get.put(Get.find()),
-          getBooksList: Get.put(Get.find()),
+          getFirstBooksList: Get.put(Get.find()),
           signOutUserUsecase: Get.put(Get.find()),
           getLoggedUser: Get.put(Get.find())
       ),);

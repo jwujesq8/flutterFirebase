@@ -7,6 +7,7 @@ import '../../../../domain/entities/book.dart';
 import '../../../controllers/book_controller.dart';
 import '../../auth/auth_controller.dart';
 import '../../navigation_bar/custom_navigation_bar.dart';
+import 'editCurrentBook/editCurrentBookPage.dart';
 
 class EditLibraryPage extends StatelessWidget{
   EditLibraryPage({Key? key}) : super(key: key);
@@ -27,77 +28,92 @@ class EditLibraryPage extends StatelessWidget{
 
   Future<void> getLibrary() async {
     var userId = await _bookController.getLoggedUsername();
-    List<Book> library = await _bookController.getLibrary(userId.email);
+    List<Book> library = await _bookController.getExistingLibrary(userId.email);
     books.value = library;
   }
 
-  Widget createBooksCard(Book book) {
+  void goToEditCurrentBookPage(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditCurrentBookPage(currentBook: book),
+      ),
+    );
+  }
+
+  // Future<void> toEditCurrentBook() async{
+  //   Get.toNamed('/editCurrentBook');
+  // }
+
+  Widget createBooksCard(BuildContext context, Book book) {
     return Card(
-        child: Column(
+        child: Row(
           children: [
-            Container(
-              child: Text(
-                book.title.toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff3b2a2f),
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            Container(
-              child: Text(
-                book.author.toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff543c43),
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.only(left:14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "pages: ${book.pages}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff543c43),
-                        fontSize: 11,
-                      ),
+            Column(
+              children: [
+                Container(
+                  child: Text(
+                    book.title.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff3b2a2f),
+                      fontSize: 15,
                     ),
-                    Text(
-                      "read: ${book.read}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff543c43),
-                        fontSize: 11,
-                      ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    book.author.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff543c43),
+                      fontSize: 11,
                     ),
-                    // ElevatedButton(
-                    //     onPressed: //TODO: service for editing this particular book,
-                    //     child: const Icon(
-                    //       icon: Icons.edit_note_outlined,
-                    //     ))
-                  ],
+                  ),
+                ),
+                Container(
+                    margin: const EdgeInsets.only(left:14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "pages: ${book.pages}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff543c43),
+                            fontSize: 11,
+                          ),
+                        ),
+                        Text(
+                          "read: ${book.read}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff543c43),
+                            fontSize: 11,
+                          ),
+                        ),
+                      ],
+                    )
                 )
-            )
+              ],
+            ),
+            ElevatedButton(
+                onPressed: (){
+                  goToEditCurrentBookPage(context, book);
+                },
+                child: const Icon(Icons.edit_outlined))
           ],
-        ));
+        )
+    );
   }
 
   Future<void> addNewBook() async{
-    //TODO: service for adding new book
     Get.offAllNamed('/addNewBook');
-    // var userId = await _bookController.getLoggedUsername();
-    // bool answer = await _bookController.addBookToLibrary(book, userId);
-  }
-
+    }
 
   @override
   Widget build(BuildContext context) {
+    getLibrary();
     return Scaffold(
       appBar: AppBar(
         title: const Text('edit library page'),
@@ -112,16 +128,16 @@ class EditLibraryPage extends StatelessWidget{
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
               Expanded(
-                child: ListView.builder(
+                child: Obx(() => ListView.builder(
                   itemCount: books.length,
                   itemBuilder: (context, index) {
-                    return createBooksCard(books[index]);
+                    return createBooksCard(context, books[index]);
                   },
-                ),
+                ),)
               ),
             ]
 

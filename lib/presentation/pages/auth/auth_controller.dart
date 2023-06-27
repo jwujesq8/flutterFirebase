@@ -13,12 +13,12 @@ class AuthController extends GetxController {
   LoginUserUsecase loginUserUsecase;
   SignOutUserUsecase signOutUserUsecase;
   GetLoggedUser getLoggedUser;
-  GetBooksList getBooksList;
+  GetFirstBooksList getFirstBooksList;
 
   AuthController({
     required this.loginUserUsecase,
     required this.signOutUserUsecase,
-    required this.getBooksList,
+    required this.getFirstBooksList,
     required this.getLoggedUser
   });
 
@@ -40,7 +40,7 @@ class AuthController extends GetxController {
     var user = await getLoggedUser.execute();
     if(user.email.isNotEmpty){
       _user.value = AuthUser(email: user.email, password: user.password);
-      _list.value = await getBooksList.execute(_user.value.email);
+      _list.value = await getFirstBooksList.execute(_user.value.email);
     }
     else {
       onClose();
