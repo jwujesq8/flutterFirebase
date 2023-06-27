@@ -56,60 +56,71 @@ class EditCurrentBookPage extends StatelessWidget{
         title: const Text('edit current book'),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 25, right: 15),
+        padding: const EdgeInsets.only(left: 25, right: 25),
         child: Column(
-
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Card(
                   child: Column(
-                children: [
-                    Container(
-                      child: Text(
-                        currentBook.title.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff3b2a2f),
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        currentBook.author.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff543c43),
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(left:14),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "pages: ${currentBook.pages}",
+                      children: [
+                          Container(
+                            child: Text(
+                              currentBook.title.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff3b2a2f),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              currentBook.author.toString(),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff543c43),
                                 fontSize: 11,
                               ),
                             ),
-                            Text(
-                              "read: ${currentBook.read}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff543c43),
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        )
-                    )
-                  ],
+                          ),
+                          Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "pages: ${currentBook.pages}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff543c43),
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                  Text(
+                                    "read: ${currentBook.read}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff543c43),
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ],
+                              )
+                          )
+                        ],
                 )),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 25, right: 25),
+                  child: Text(
+                    currentBook.opinion?.isNotEmpty == true ? "${currentBook.opinion}" :  "no opinion..",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff543c43),
+                      fontSize: 15,
+                    ),
+                  ),
+                )
+              ),
               const SizedBox(
                 height: 55,
               ),

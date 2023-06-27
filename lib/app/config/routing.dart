@@ -4,6 +4,7 @@ import 'package:lsm_project/presentation/pages/auth/loginRegisterPageBindings.da
 import 'package:lsm_project/presentation/pages/auth/treeOfPages.dart';
 import 'package:lsm_project/presentation/pages/home/homePage.dart';
 import 'package:lsm_project/presentation/pages/home/homePageBindings.dart';
+import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/editCurrentBookPage.dart';
 import 'package:lsm_project/presentation/pages/library/libraryPage.dart';
 import 'package:lsm_project/presentation/pages/library/libraryPageBindings.dart';
 

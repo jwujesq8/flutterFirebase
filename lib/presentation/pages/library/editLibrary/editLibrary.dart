@@ -41,70 +41,78 @@ class EditLibraryPage extends StatelessWidget{
     );
   }
 
-  // Future<void> toEditCurrentBook() async{
-  //   Get.toNamed('/editCurrentBook');
-  // }
-
   Widget createBooksCard(BuildContext context, Book book) {
-    return Card(
-        child: Row(
-          children: [
-            Column(
-              children: [
-                Container(
-                  child: Text(
-                    book.title.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff3b2a2f),
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    book.author.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff543c43),
-                      fontSize: 11,
-                    ),
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(left:14),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "pages: ${book.pages}",
+    return Row(
+          children:[
+            Expanded(
+                flex:6,
+                child: Card(
+                  child:
+                  Column(
+                    children: [
+                      Container(
+                        //margin: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          book.title.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff3b2a2f),
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        //margin: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          book.author.toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff543c43),
                             fontSize: 11,
                           ),
                         ),
-                        Text(
-                          "read: ${book.read}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff543c43),
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    )
-                )
-              ],
+                      ),
+                      Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "pages: ${book.pages}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff543c43),
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Text(
+                                "read: ${book.read}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff543c43),
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          )
+                      )
+                    ],
+                  ),
+                ),
             ),
-            ElevatedButton(
+          const SizedBox(
+            width: 18,
+          ),
+          Expanded(
+              flex: 1,
+              child: ElevatedButton(
                 onPressed: (){
                   goToEditCurrentBookPage(context, book);
                 },
-                child: const Icon(Icons.edit_outlined))
-          ],
-        )
-    );
+                child: const Icon(Icons.edit_outlined),
+              ),
+          )
+          ]
+        );
   }
 
   Future<void> addNewBook() async{
@@ -126,9 +134,10 @@ class EditLibraryPage extends StatelessWidget{
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(25),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Expanded(
