@@ -68,7 +68,7 @@ class BookRepositoryImpl extends BookRepository {
     List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
     List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
     if (!library.contains(oldBook)) {
-      return Book(id: '-', title: "-", author: "-");
+      return Book(id: '', title: "", author: "");
     } else {
       library.remove(oldBook);
       library.add(newBook);

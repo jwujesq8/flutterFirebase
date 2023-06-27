@@ -28,79 +28,88 @@ class UpdateCurrentBookPage extends StatelessWidget{
     return user.email;
   }
 
+  Widget createTextField(TextEditingController controller, String title, String hintText) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 5,bottom: 15),
+        child: TextField(
+          controller: controller..text = hintText,
+          decoration: InputDecoration(
+            labelText: title,
+            hintText: hintText,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(
+                  color: Color(0xff3b2a2f),
+                  width: 4
+              ),
+            ),
+            contentPadding: const EdgeInsets.all(5),
+          ),
+        ));
+  }
+
+  Book createBook(String title, String author, String pages,
+      String read, String like, String opinion) {
+    String _title = title.toString();
+    String _author = author.toString();
+    int _pages = int.parse(pages);
+    bool _read,_like;
+    if(read == "yes"){
+      _read = true;
+    } else {
+      _read = false;
+    }
+    if(like == "yes"){
+      _like = true;
+    } else {
+      _like = false;
+    }
+    String _opinion = opinion.toString();
+    return Book(
+        id: Uuid().v1.toString(),
+        title: _title,
+        author: _author,
+        pages: _pages,
+        read: _read,
+        like: _like,
+        opinion: _opinion
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('remove current book'),
+        title: const Text('update current book'),
       ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 25, right: 15),
+      body: Padding(
+        padding: EdgeInsets.only(left: 25, right: 25),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Update book"),
-              Card(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Text(
-                          currentBook.title.toString(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff3b2a2f),
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          currentBook.author.toString(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff543c43),
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left:14),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "pages: ${currentBook.pages}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff543c43),
-                                  fontSize: 11,
-                                ),
-                              ),
-                              Text(
-                                "read: ${currentBook.read}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff543c43),
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ],
-                          )
-                      )
-                    ],
-                  )),
-
-
+              createTextField(_titleController, "title", currentBook.title),
+              createTextField(_authorController, "author", currentBook.author),
+              createTextField(_pagesController, "count of pages", currentBook.pages.toString()),
+              createTextField(_readController, "have you read it? yes/no",  currentBook.read==true ? "yes" : "no"),
+              createTextField(_likeController, "do you like it? yes/no", currentBook.like==true ? "yes" : "no"),
+              createTextField(_opinionController, "opinion", currentBook.opinion?.isEmpty==true ? "no opinion.." : "${currentBook.opinion}"),
+              ElevatedButton(
+                  onPressed: () async {
+                    Book newBook = createBook(_titleController.text,
+                        _authorController.text, _pagesController.text,
+                        _readController.text, _likeController.text, _opinionController.text);
+                    Book book = await _bookController.updateBook(currentBook, newBook, await userId());
+                    Get.toNamed('library');
+                  },
+                  child: const Text("confirm changes"))
             ]
-
         ),
-      ),
-      bottomNavigationBar: const CustomNavigationBar(),
+      )
 
-
-    );
+      );
   }
 
 }

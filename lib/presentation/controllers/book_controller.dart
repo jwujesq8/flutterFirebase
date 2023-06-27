@@ -105,7 +105,7 @@ class BookController extends GetxController {
       return newBook;
     }
     else {
-      return Book(id: '-', title: "-", author: "-");
+      return Book(id: '', title: "", author: "");
     }
 }
 }
