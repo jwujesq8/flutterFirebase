@@ -90,7 +90,7 @@ class AddNewBookPage extends StatelessWidget{
               createTextField(_authorController, "the author"),
               createTextField(_pagesController, "how much pages"),
               createTextField(_readController, "have you read it? yes/no"),
-              createTextField(_likeController, "do you like it? yes/no, (if read = no)=>no"),
+              createTextField(_likeController, "do you like it? yes/no"),
               createTextField(_opinionController, "your little opinion about this book"),
               ElevatedButton(
                 onPressed: () async {

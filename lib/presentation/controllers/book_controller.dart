@@ -47,7 +47,7 @@ class BookController extends GetxController {
 
   @override
   void onClose() async {
-    _list.close();
+    //_list.close();
     super.onClose();
   }
 
@@ -82,6 +82,7 @@ class BookController extends GetxController {
   Future<bool> removeBookFromLibrary(Book book, String userId) async {
     if(book.title.isNotEmpty && userId.isNotEmpty){
       await removeBook.execute(book, userId);
+      //_list.remove(book);
       return true;
     } else{
       return false;
@@ -102,6 +103,8 @@ class BookController extends GetxController {
   Future<Book> updateBook(Book oldBook, Book newBook, String userId) async {
     if(userId.isNotEmpty){
       await updateBooksInfo.execute(oldBook, newBook, userId);
+      // _list.remove(oldBook);
+      // _list.add(newBook);
       return newBook;
     }
     else {

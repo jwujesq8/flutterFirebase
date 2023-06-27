@@ -23,7 +23,7 @@ class AuthController extends GetxController {
   });
 
   final Rx<AuthUser> _user = AuthUser(email: '', password: '').obs;
-  final RxList<Book?> _list = <Book?>[].obs;
+  final RxList<Book> _list = <Book>[].obs;
 
   AuthUser? get user => _user.value;
   @override

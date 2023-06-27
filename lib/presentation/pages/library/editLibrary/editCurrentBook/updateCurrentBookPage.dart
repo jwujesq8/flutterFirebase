@@ -30,7 +30,7 @@ class UpdateCurrentBookPage extends StatelessWidget{
 
   Widget createTextField(TextEditingController controller, String title, String hintText) {
     return Padding(
-        padding: const EdgeInsets.only(top: 5,bottom: 15),
+        padding: const EdgeInsets.only(top: 5,bottom: 10),
         child: TextField(
           controller: controller..text = hintText,
           decoration: InputDecoration(
@@ -101,7 +101,8 @@ class UpdateCurrentBookPage extends StatelessWidget{
                     Book newBook = createBook(_titleController.text,
                         _authorController.text, _pagesController.text,
                         _readController.text, _likeController.text, _opinionController.text);
-                    Book book = await _bookController.updateBook(currentBook, newBook, await userId());
+                    await _bookController.updateBook(currentBook, newBook, await userId());
+
                     Get.toNamed('library');
                   },
                   child: const Text("confirm changes"))

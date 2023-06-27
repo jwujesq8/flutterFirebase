@@ -15,7 +15,12 @@ class BookRepositoryImpl extends BookRepository {
   Future<List<Book>> getFirstBooksList(String userId) async {
 
     var library = await _ds.getLibrary(userId);
+    List<Book> addedBooks = [];
+    List<Book> removedBooks = [];
+    print(library);
     _storage.write('library_$userId', library);
+    _storage.write('addedBooks_$userId', addedBooks);
+    _storage.write('removedBooks_$userId', removedBooks);
     return library;
   }
 
@@ -40,8 +45,9 @@ class BookRepositoryImpl extends BookRepository {
       _storage.write('library_$userId', library);
       if(!addedBooks.contains(book)){
         addedBooks.add(book);
-        _storage.write('addedBooks_$userId', book);
+        _storage.write('addedBooks_$userId', addedBooks);
       }
+      print("library:");
       print(library);
       return true;
     }
@@ -49,7 +55,7 @@ class BookRepositoryImpl extends BookRepository {
 
   @override
   Future<bool> removeBook(Book book, String userId) async {
-    List<Book> library = _storage.read<List<Book>>('library_$userId') ?? [];
+    List<Book> library = _storage.read('library_$userId') ?? [];
     List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
     if (!library.contains(book)) {
       return false;
@@ -70,13 +76,18 @@ class BookRepositoryImpl extends BookRepository {
     if (!library.contains(oldBook)) {
       return Book(id: '', title: "", author: "");
     } else {
+      print("before remove");
       library.remove(oldBook);
+      print("before add");
       library.add(newBook);
+      print("before writing library");
       _storage.write('library_$userId', library);
 
+      print("before writing removed");
       removedBooks.add(oldBook);
       _storage.write('removedBooks_$userId', removedBooks);
 
+      print("before adding library");
       addedBooks.add(newBook);
       _storage.write('addedBooks_$userId', addedBooks);
       return newBook;
