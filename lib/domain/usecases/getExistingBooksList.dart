@@ -1,11 +1,11 @@
 import 'package:lsm_project/domain/repositories/book_repo.dart';
 import 'package:lsm_project/domain/entities/book.dart';
 
-class GetFirstBooksList {
+class GetExistingBooksList {
   final BookRepository _repository;
-  GetFirstBooksList(this._repository);
+  GetExistingBooksList(this._repository);
 
   Future<List<Book>> execute(String userId) async {
-    return await _repository.getFirstBooksList(userId);
+    return await _repository.getExistingBooksList(userId);
   }
 }

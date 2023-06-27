@@ -40,10 +40,8 @@ class LibraryPage extends StatelessWidget{
 
   Future<void> getLibrary() async {
     var userId = await _bookController.getLoggedUsername();
-    List<Book> library = await _bookController.getLibrary(userId.email);
+    List<Book> library = await _bookController.getExistingLibrary(userId.email);
     books.value = library;
-    print("LIBRARY:");
-    print(library);
   }
 
 
@@ -101,14 +99,13 @@ class LibraryPage extends StatelessWidget{
   }
 
   Future<void> toEditLibrary() async{
-    Get.offAllNamed("/editLibrary");
+    Get.toNamed('/editLibrary');
   }
 
 
   @override
   Widget build(BuildContext context) {
     getLibrary();
-    print(books);
     return Scaffold(
       appBar: AppBar(
         title: const Text('library'),

@@ -12,22 +12,32 @@ class BookRepositoryImpl extends BookRepository {
   BookRepositoryImpl(this._ds);
 
   @override
-  Future<List<Book>> getBooksList(String userId) async {
+  Future<List<Book>> getFirstBooksList(String userId) async {
+
     var library = await _ds.getLibrary(userId);
-    _storage.write('library_$userId', library);
-    print("LIBRARY FROM REPO_IMPPL");
+    List<Book> addedBooks = [];
+    List<Book> removedBooks = [];
     print(library);
+    _storage.write('library_$userId', library);
+    _storage.write('addedBooks_$userId', addedBooks);
+    _storage.write('removedBooks_$userId', removedBooks);
     return library;
-    //return List<Book>.from(library);
+  }
+
+  @override
+  Future<List<Book>> getExistingBooksList(String userId) async {
+    var library = _storage.read('library_$userId');
+    return library;
   }
 
   @override
   Future<bool> addBook(Book book, String userId) async {
     List<Book> library = _storage.read('library_$userId') ?? [];
+
     List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
-    if (library.isEmpty) {
-      library = await getBooksList(userId);
-    }
+    // if (library.isEmpty) {
+    //   library = await getBooksList(userId);
+    // }
     if (library.contains(book)) {
       return false;
     } else {
@@ -35,15 +45,17 @@ class BookRepositoryImpl extends BookRepository {
       _storage.write('library_$userId', library);
       if(!addedBooks.contains(book)){
         addedBooks.add(book);
-        _storage.write('addedBooks_$userId', book);
+        _storage.write('addedBooks_$userId', addedBooks);
       }
+      print("library:");
+      print(library);
       return true;
     }
   }
 
   @override
   Future<bool> removeBook(Book book, String userId) async {
-    List<Book> library = _storage.read<List<Book>>('library_$userId') ?? [];
+    List<Book> library = _storage.read('library_$userId') ?? [];
     List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
     if (!library.contains(book)) {
       return false;
@@ -62,15 +74,20 @@ class BookRepositoryImpl extends BookRepository {
     List<Book> removedBooks = _storage.read('removedBooks_$userId') ?? [];
     List<Book> addedBooks = _storage.read('addedBooks_$userId') ?? [];
     if (!library.contains(oldBook)) {
-      return Book(id: '-', title: "-", author: "-");
+      return Book(id: '', title: "", author: "");
     } else {
+      print("before remove");
       library.remove(oldBook);
+      print("before add");
       library.add(newBook);
+      print("before writing library");
       _storage.write('library_$userId', library);
 
+      print("before writing removed");
       removedBooks.add(oldBook);
       _storage.write('removedBooks_$userId', removedBooks);
 
+      print("before adding library");
       addedBooks.add(newBook);
       _storage.write('addedBooks_$userId', addedBooks);
       return newBook;

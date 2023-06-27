@@ -4,124 +4,149 @@ import 'package:get/get.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 
 import '../../../../domain/entities/book.dart';
+import '../../../controllers/book_controller.dart';
 import '../../auth/auth_controller.dart';
 import '../../navigation_bar/custom_navigation_bar.dart';
+import 'editCurrentBook/editCurrentBookPage.dart';
 
 class EditLibraryPage extends StatelessWidget{
   EditLibraryPage({Key? key}) : super(key: key);
   final _authController = Get.find<AuthController>();
-
-
-  List<Book> books = [
-    Book(id: '0', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '1', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '2', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '3', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-    Book(id: '4', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-        read: true, like: true, opinion: "I want to read it again)"),
-  ];
+  final _bookController = Get.find<BookController>();
+  RxInt booksLength = 0.obs;
+  RxList<Book> books = <Book>[].obs;
 
   //final User? user = FirebaseAuthSource().currentUser;
   Future<void> signOut() async {
     await _authController.signOutUserUsecase.execute();
   }
-  Future<Widget> userId() async{
+  Future<String> userId() async{
     var user = await _authController.getLoggedUser.execute();
-    if (user != null){
-      return Text(user.email);
-    } else {
-      return const Text("oops...");
-    }
+    return user.email;
     //return Text(user?.email ?? 'user email');
   }
 
-  Widget createBooksCard(Book book) {
-    return Card(
-        child: Column(
-          children: [
-            Container(
-              child: Text(
-                book.title.toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff3b2a2f),
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            Container(
-              child: Text(
-                book.author.toString(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff543c43),
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.only(left:14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "pages: ${book.pages}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff543c43),
-                        fontSize: 11,
-                      ),
-                    ),
-                    Text(
-                      "read: ${book.read}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff543c43),
-                        fontSize: 11,
-                      ),
-                    ),
-                  ],
-                )
-            )
-          ],
-        ));
+  Future<void> getLibrary() async {
+    var userId = await _bookController.getLoggedUsername();
+    List<Book> library = await _bookController.getExistingLibrary(userId.email);
+    books.value = library;
   }
 
-  Future<void> toEditLibrary() async{
-    Get.offAllNamed('/editLibrary');
+  void goToEditCurrentBookPage(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditCurrentBookPage(currentBook: book),
+      ),
+    );
   }
 
+  Widget createBooksCard(BuildContext context, Book book) {
+    return Row(
+          children:[
+            Expanded(
+                flex:6,
+                child: Card(
+                  child:
+                  Column(
+                    children: [
+                      Container(
+                        //margin: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          book.title.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff3b2a2f),
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        //margin: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          book.author.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff543c43),
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "pages: ${book.pages}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff543c43),
+                                  fontSize: 11,
+                                ),
+                              ),
+                              Text(
+                                "read: ${book.read}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff543c43),
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          )
+                      )
+                    ],
+                  ),
+                ),
+            ),
+          const SizedBox(
+            width: 18,
+          ),
+          Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                onPressed: (){
+                  goToEditCurrentBookPage(context, book);
+                },
+                child: const Icon(Icons.edit_outlined),
+              ),
+          )
+          ]
+        );
+  }
+
+  Future<void> addNewBook() async{
+    Get.offAllNamed('/addNewBook');
+    }
 
   @override
   Widget build(BuildContext context) {
+    getLibrary();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('library'),
+        title: const Text('edit library page'),
         actions: [
           IconButton(
               onPressed: () {
-                toEditLibrary();
+                addNewBook();
               },
-              icon: const Icon(Icons.edit))
+              icon: const Icon(Icons.add_box_outlined))
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(25),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Expanded(
-                child: ListView.builder(
+                child: Obx(() => ListView.builder(
                   itemCount: books.length,
                   itemBuilder: (context, index) {
-                    return createBooksCard(books[index]);
+                    return createBooksCard(context, books[index]);
                   },
-                ),
+                ),)
               ),
             ]
 
@@ -134,16 +159,3 @@ class EditLibraryPage extends StatelessWidget{
   }
 
 }
-// const Text('your login: '),
-//FutureBuilder<Widget>(
-//   future: userId(),
-//   builder: (context, snapshot) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return const CircularProgressIndicator();
-//     } else if (snapshot.hasError) {
-//       return Text('Error: ${snapshot.error}');
-//     } else {
-//       return snapshot.data ?? const Text('Oops...');
-//     }
-//   },
-// ),

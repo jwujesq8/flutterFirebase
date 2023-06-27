@@ -93,6 +93,7 @@ class _SettingsPageState extends State<SettingsPage>{
                 }
               },
             ),
+            //TODO: button for saving changes
             switchedButtonForLogOut(),
 
           ],

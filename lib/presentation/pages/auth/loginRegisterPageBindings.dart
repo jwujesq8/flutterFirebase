@@ -1,4 +1,5 @@
 import 'package:lsm_project/domain/usecases/add_book_usecase.dart';
+import 'package:lsm_project/domain/usecases/getExistingBooksList.dart';
 import 'package:lsm_project/domain/usecases/get_books_list_usecase.dart';
 import 'package:lsm_project/domain/usecases/get_logged_user.dart';
 import 'package:lsm_project/domain/usecases/login_user.dart';
@@ -16,16 +17,16 @@ class LoginRegisterPageBindings extends Bindings {
   void dependencies() {
     Get.put(AddBook(Get.find()));
     Get.put(RemoveBook(Get.find()));
-    Get.put(GetBooksList(Get.find()));
+    Get.put(GetFirstBooksList(Get.find()));
     Get.put(UpdateBooksInfo(Get.find()));
     Get.put(SaveLibraryBeforeLogout(Get.find()));
     Get.put(LoginUserUsecase(Get.find()));
-    Get.put(GetBooksList(Get.find()));
+    //Get.put(GetBooksList(Get.find()));
     Get.put(SignOutUserUsecase(Get.find()));
     Get.put(GetLoggedUser(Get.find()));
     Get.put<AuthController>(AuthController(
         loginUserUsecase: Get.find(),
-        getBooksList: Get.find(),
+        getFirstBooksList: Get.find(),
         signOutUserUsecase: Get.find(),
         getLoggedUser: Get.find()
     ));

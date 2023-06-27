@@ -15,7 +15,7 @@ class FirebaseAuthSource {
         password: '',
       );
     }
-    return AuthUser(email: '-', password: '-');
+    return AuthUser(email: '', password: '');
   }
 
   Future<FirebaseAuthUserModel> signInWithEmailAndPassword({

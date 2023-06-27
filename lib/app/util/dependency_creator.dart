@@ -21,7 +21,7 @@ class DependencyCreator {
     Get.lazyPut<BookRepository>(() => BookRepositoryImpl(Get.find()));
     Get.lazyPut(() => AuthController(
         loginUserUsecase: Get.put(LoginUserUsecase(Get.find())),
-        getBooksList: Get.put(GetBooksList(Get.find())),
+        getFirstBooksList: Get.put(GetFirstBooksList(Get.find())),
         signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
         getLoggedUser: Get.put(GetLoggedUser(Get.find()))
     ));
