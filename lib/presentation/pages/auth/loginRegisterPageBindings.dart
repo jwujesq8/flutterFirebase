@@ -27,11 +27,13 @@ class LoginRegisterPageBindings extends Bindings {
     //Get.put(GetBooksList(Get.find()));
     Get.put(SignOutUserUsecase(Get.find()));
     Get.put(GetLoggedUser(Get.find()));
+    Get.put(GetFirstQuotesList(Get.find()));
     Get.put<AuthController>(AuthController(
         loginUserUsecase: Get.find(),
         getFirstBooksList: Get.find(),
         signOutUserUsecase: Get.find(),
-        getLoggedUser: Get.find()
+        getLoggedUser: Get.find(),
+      getFirstQuotesList: Get.find()
     ));
     Get.put(GetExistingQuotesList(Get.find()));
     Get.put(GetFirstQuotesList(Get.find()));

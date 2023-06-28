@@ -23,6 +23,7 @@ class QuoteController extends GetxController {
   Future<List<Quote>> getStartQuotesList(String userId) async {
     if(userId.isNotEmpty){
       _list.value = await getFirstQuotesList.execute(userId);
+      return _list.value;
     }
     return [];
   }
@@ -31,7 +32,8 @@ class QuoteController extends GetxController {
   void onInit() async {
     super.onInit();
     var user = await getLoggedUser.execute();
-    _list.value = await getStartQuotesList(user.email);
+    //_list.value = await getStartQuotesList(user.email);
+    _list.value = await getExistingQuotesList.execute(user.email);
   }
 
 

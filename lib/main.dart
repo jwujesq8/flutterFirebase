@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Ysabeau'
       ),
       initialRoute: '/',
+      defaultTransition: Transition.fadeIn,
       getPages: App.Routing,
-      home: const TreeOfPages(),
+      home: TreeOfPages(),
     );
   }
 }

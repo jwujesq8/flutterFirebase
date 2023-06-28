@@ -90,8 +90,9 @@ class BookController extends GetxController {
       return false;
     }
   }
-  void saveChangesBeforeLogout(String userId) async {
-    await saveLibraryBeforeLogout.execute(userId);
+  Future<bool> saveChangesBeforeLogout(String userId) async {
+    bool answer = await saveLibraryBeforeLogout.execute(userId);
+    return answer;
   }
   Future<bool> logOut() async {
     var user = await getLoggedUsername();

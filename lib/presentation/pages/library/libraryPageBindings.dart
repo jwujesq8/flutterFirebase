@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lsm_project/domain/usecases/getExistingBooksList.dart';
+import 'package:lsm_project/domain/usecases/get_first_quotes_list.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 
@@ -20,11 +21,13 @@ class LibraryPageBindings extends Bindings {
     Get.put(GetExistingBooksList(Get.find()));
     Get.put(SignOutUserUsecase(Get.find()));
     Get.put(GetLoggedUser(Get.find()));
+    Get.put(GetFirstQuotesList(Get.find()));
     Get.put(AuthController(
           loginUserUsecase: Get.put(Get.find()),
           getFirstBooksList: Get.put(Get.find()),
           signOutUserUsecase: Get.put(Get.find()),
-          getLoggedUser: Get.put(Get.find())
+          getLoggedUser: Get.put(Get.find()),
+      getFirstQuotesList: Get.put(Get.find())
       ),);
     Get.put(BookController(
         addBook: Get.put(AddBook(Get.find())),

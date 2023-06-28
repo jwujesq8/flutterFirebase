@@ -35,7 +35,8 @@ class _TreeOfPagesState extends State<TreeOfPages> {
       final user = _authController.user;
       if (user != null && user.email.isNotEmpty) {
         _authController.getFirstBooksList.execute(user.email);
-        _quoteController.getFirstQuotesList.execute(user.email);
+        _authController.getFirstQuotesList.execute(user.email);
+        //_quoteController.getStartQuotesList(user.email);
         return HomePage();
       } else {
         return LoginPage();

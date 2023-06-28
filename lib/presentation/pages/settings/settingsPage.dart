@@ -24,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage>{
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
+  final _bookController = Get.find<BookController>();
   final RxBool isLogin = true.obs;
   RxBool changePage = false.obs;
 
@@ -37,7 +38,11 @@ class _SettingsPageState extends State<SettingsPage>{
   Future<Widget> userId() async{
     var user = await _authController.getLoggedUser.execute();
     if (user != null){
-      return Text(user.email);
+      return Center(
+        child: Text(user.email, style: TextStyle(
+          fontSize: 20
+        ),),
+      );
     } else {
       return const Text("oops...");
     }
@@ -64,6 +69,11 @@ class _SettingsPageState extends State<SettingsPage>{
       child: Text(changePage.value ? 'go back' : 'log out'),
     ));
   }
+  Future<void> saveAll() async{
+    var user = await _authController.getLoggedUser.execute();
+    bool answer = await _bookController.saveChangesBeforeLogout(user.email);
+    print(answer);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +92,7 @@ class _SettingsPageState extends State<SettingsPage>{
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             FutureBuilder<Widget>(
               future: userId(),
@@ -95,7 +106,12 @@ class _SettingsPageState extends State<SettingsPage>{
                 }
               },
             ),
-            //TODO: button for saving changes
+            SizedBox(
+              height: 80,
+            ),
+            ElevatedButton(
+                onPressed: saveAll,
+                child: Text("save changes", style: TextStyle(fontSize: 20),)),
             switchedButtonForLogOut(),
 
           ],

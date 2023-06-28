@@ -17,7 +17,8 @@ class HomePageBindings extends Bindings {
           loginUserUsecase: Get.put(LoginUserUsecase(Get.find())),
           getFirstBooksList: Get.put(GetFirstBooksList(Get.find())),
           signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
-          getLoggedUser: Get.put(GetLoggedUser(Get.find()))
+          getLoggedUser: Get.put(GetLoggedUser(Get.find())),
+          getFirstQuotesList: Get.put(GetFirstQuotesList(Get.find()))
       ),);
 
     Get.put(

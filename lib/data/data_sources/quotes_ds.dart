@@ -32,7 +32,4 @@ class QuoteDataSource {
       return [];
     }
   }
-  Future<void> closeQuotesConnection() async{
-    FirebaseFirestore.instance.terminate();
-  }
 }

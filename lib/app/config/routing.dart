@@ -51,7 +51,7 @@ List<GetPage<dynamic>> get Routing{
         name: '/settings',
         page: () => const SettingsPage(),
         //transition: Transition.fadeIn,
-        binding: LoginRegisterPageBindings(),
+        binding: LibraryPageBindings(),
       ),
       GetPage(
         name: '/recognize',
