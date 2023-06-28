@@ -13,6 +13,4 @@ abstract class BookRepository {
   Future<Book> updateBooksInfo(Book oldBook, Book newBook, String userId);
 
   Future<bool> saveLibraryBeforeLogout(String userId);
-
-  Future<void> closeConnection();
 }

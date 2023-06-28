@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:lsm_project/domain/usecases/close_books_connection.dart';
 import 'package:lsm_project/domain/usecases/getExistingBooksList.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
@@ -35,8 +34,7 @@ class LibraryPageBindings extends Bindings {
         removeBook: Get.put(RemoveBook(Get.find())),
         saveLibraryBeforeLogout: Get.put(SaveLibraryBeforeLogout(Get.find())),
         signOutUserUsecase: Get.put(Get.find()),
-        updateBooksInfo: Get.put(UpdateBooksInfo(Get.find())),
-        closeConnection: Get.put(CloseBooksConnection(Get.find()))
+        updateBooksInfo: Get.put(UpdateBooksInfo(Get.find()))
       ));
 
   }

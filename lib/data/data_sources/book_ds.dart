@@ -35,7 +35,4 @@ class BookDataSource {
       return [];
     }
   }
-  Future<void> closeBooksConnection() async{
-    FirebaseFirestore.instance.terminate();
-  }
 }

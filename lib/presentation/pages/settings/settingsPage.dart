@@ -24,14 +24,11 @@ class _SettingsPageState extends State<SettingsPage>{
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
-  final _bookController = Get.find<BookController>();
-  final _quoteController = Get.find<QuoteController>();
   final RxBool isLogin = true.obs;
   RxBool changePage = false.obs;
 
   Future<void> signOut() async {
     _authController.signOut();
-    _bookController.closeConnection;
   }
   Future<void> goToLoginPage() async{
     //Get.to(const TreeOfPages());

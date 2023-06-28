@@ -7,7 +7,6 @@ import 'package:lsm_project/domain/entities/book.dart';
 import 'package:lsm_project/domain/usecases/sign_out_user_usecase.dart';
 import '../../../domain/usecases/get_logged_user.dart';
 import '../../domain/usecases/add_book_usecase.dart';
-import '../../domain/usecases/close_books_connection.dart';
 import '../../domain/usecases/remove_book_usecase.dart';
 import '../../domain/usecases/save_library_before_logout_usecase.dart';
 import '../../domain/usecases/update_books_info_usecase.dart';
@@ -22,7 +21,6 @@ class BookController extends GetxController {
   SaveLibraryBeforeLogout saveLibraryBeforeLogout;
   SignOutUserUsecase signOutUserUsecase;
   UpdateBooksInfo updateBooksInfo;
-  CloseBooksConnection closeConnection;
 
   BookController({
     required this.addBook,
@@ -32,8 +30,7 @@ class BookController extends GetxController {
     required this.removeBook,
     required this.saveLibraryBeforeLogout,
     required this.signOutUserUsecase,
-    required this.updateBooksInfo,
-    required this.closeConnection
+    required this.updateBooksInfo
   });
 
 
