@@ -110,4 +110,8 @@ class BookRepositoryImpl extends BookRepository {
     }
     return true;
   }
+
+  Future<void> closeConnection() async {
+    await _ds.closeBooksConnection();
+  }
 }

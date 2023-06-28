@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.primaries[16]),
+        fontFamily: 'Ysabeau'
       ),
       initialRoute: '/',
       getPages: App.Routing,

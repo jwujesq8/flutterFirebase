@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
-import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 import 'package:lsm_project/presentation/pages/auth/auth_controller.dart';
 
 import '../../../domain/usecases/get_books_list_usecase.dart';
+import '../../../domain/usecases/get_existing_quotes_list.dart';
+import '../../../domain/usecases/get_first_quotes_list.dart';
 import '../../../domain/usecases/get_logged_user.dart';
 import '../../../domain/usecases/login_user.dart';
 import '../../../domain/usecases/sign_out_user_usecase.dart';
+import '../../controllers/quote_controller.dart';
 
 class HomePageBindings extends Bindings {
   @override
@@ -17,5 +19,12 @@ class HomePageBindings extends Bindings {
           signOutUserUsecase: Get.put(SignOutUserUsecase(Get.find())),
           getLoggedUser: Get.put(GetLoggedUser(Get.find()))
       ),);
+
+    Get.put(
+      QuoteController(
+        getLoggedUser: Get.put(GetLoggedUser(Get.find())),
+        getExistingQuotesList: Get.put(GetExistingQuotesList(Get.find())),
+        getFirstQuotesList: Get.put(GetFirstQuotesList(Get.find()))
+    ));
   }
 }

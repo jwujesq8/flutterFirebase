@@ -39,9 +39,10 @@ class RemoveCurrentBookPage extends StatelessWidget{
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff3b2a2f),
-                  fontSize: 22,
+                  fontSize: 27,
                 ),
               ),
+              const SizedBox(height: 30),
               Card(
                   child: Column(
                     children: [
@@ -51,7 +52,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff3b2a2f),
-                            fontSize: 15,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -61,7 +62,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff543c43),
-                            fontSize: 11,
+                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -75,7 +76,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 14,
                                 ),
                               ),
                               Text(
@@ -83,7 +84,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -99,7 +100,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xff543c43),
-                        fontSize: 15,
+                        fontSize: 18,
                       ),
                     ),
                   )
@@ -112,14 +113,14 @@ class RemoveCurrentBookPage extends StatelessWidget{
                       onPressed: (){
                         Get.offAllNamed('/library');
                       },
-                      child: const Text("no")),
+                      child: const Text("no", style: TextStyle(fontSize: 18))),
                   ElevatedButton(
                       onPressed: () async {
                         bool answer = await _bookController.removeBookFromLibrary(currentBook, await userId());
 
                         Get.offAllNamed('/library');
                       },
-                      child: const Text("yes")),
+                      child: const Text("yes", style: TextStyle(fontSize: 18))),
                 ],
               )
 

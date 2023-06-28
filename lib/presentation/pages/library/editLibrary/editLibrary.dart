@@ -57,7 +57,7 @@ class EditLibraryPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff3b2a2f),
-                            fontSize: 15,
+                            fontSize: 17,
                           ),
                         ),
                       ),
@@ -68,7 +68,7 @@ class EditLibraryPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff543c43),
-                            fontSize: 11,
+                            fontSize: 13,
                           ),
                         ),
                       ),
@@ -81,7 +81,7 @@ class EditLibraryPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 13,
                                 ),
                               ),
                               Text(
@@ -89,7 +89,7 @@ class EditLibraryPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 13,
                                 ),
                               ),
                             ],

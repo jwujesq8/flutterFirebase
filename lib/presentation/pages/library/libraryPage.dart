@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
@@ -15,18 +16,6 @@ class LibraryPage extends StatelessWidget{
   RxInt booksLength = 0.obs;
   RxList<Book> books = <Book>[].obs;
 
-  // List<Book> books = [
-  //   Book(id: '0', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-  //     read: true, like: true, opinion: "I want to read it again)"),
-  //   Book(id: '1', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-  //       read: true, like: true, opinion: "I want to read it again)"),
-  //   Book(id: '2', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-  //       read: true, like: true, opinion: "I want to read it again)"),
-  //   Book(id: '3', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-  //       read: true, like: true, opinion: "I want to read it again)"),
-  //   Book(id: '4', title: "Demons", author: "Fyodor Dostoevsky", pages: 648,
-  //       read: true, like: true, opinion: "I want to read it again)"),
-  // ];
 
   //final User? user = FirebaseAuthSource().currentUser;
   Future<void> signOut() async {
@@ -56,7 +45,7 @@ class LibraryPage extends StatelessWidget{
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff3b2a2f),
-                  fontSize: 15,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -66,7 +55,7 @@ class LibraryPage extends StatelessWidget{
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff543c43),
-                  fontSize: 11,
+                  fontSize: 14,
                 ),
               ),
             ),
@@ -80,7 +69,7 @@ class LibraryPage extends StatelessWidget{
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff543c43),
-                      fontSize: 11,
+                      fontSize: 14,
                     ),
                   ),
                   Text(
@@ -88,11 +77,22 @@ class LibraryPage extends StatelessWidget{
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff543c43),
-                      fontSize: 11,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )
+            ),
+            Container(
+              child: Text(
+                book.opinion?.isNotEmpty == true ?
+                  "${book.opinion}" :  "no opinion..",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff543c43),
+                  fontSize: 16,
+                ),
+              ),
             )
           ],
         ));

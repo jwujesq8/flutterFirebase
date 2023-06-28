@@ -105,7 +105,7 @@ class UpdateCurrentBookPage extends StatelessWidget{
 
                     Get.toNamed('library');
                   },
-                  child: const Text("confirm changes"))
+                  child: const Text("confirm changes", style: TextStyle( fontSize: 18),))
             ]
         ),
       )

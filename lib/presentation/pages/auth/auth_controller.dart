@@ -30,8 +30,8 @@ class AuthController extends GetxController {
   void onClose() async {
     super.onClose();
     await signOutUserUsecase.execute();
-    _user.close();
-    _list.close();
+    // _user.close();
+    // _list.close();
   }
 
   @override
@@ -42,15 +42,15 @@ class AuthController extends GetxController {
       _user.value = AuthUser(email: user.email, password: user.password);
       _list.value = await getFirstBooksList.execute(_user.value.email);
     }
-    else {
-      onClose();
-    }
+    // else {
+    //   onClose();
+    // }
   }
 
   void signOut() async {
     _user.value.email = '';
     _user.value.password = '';
-    _list.close();
+    _list.value = [];
     onClose();
     await signOutUserUsecase.execute();
   }

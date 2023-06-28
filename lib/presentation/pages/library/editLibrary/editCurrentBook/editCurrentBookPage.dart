@@ -69,7 +69,7 @@ class EditCurrentBookPage extends StatelessWidget{
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff3b2a2f),
-                                fontSize: 15,
+                                fontSize: 18,
                               ),
                             ),
                           ),
@@ -79,7 +79,7 @@ class EditCurrentBookPage extends StatelessWidget{
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff543c43),
-                                fontSize: 11,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -92,7 +92,7 @@ class EditCurrentBookPage extends StatelessWidget{
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff543c43),
-                                      fontSize: 11,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   Text(
@@ -100,7 +100,7 @@ class EditCurrentBookPage extends StatelessWidget{
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff543c43),
-                                      fontSize: 11,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -116,25 +116,28 @@ class EditCurrentBookPage extends StatelessWidget{
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff543c43),
-                      fontSize: 15,
+                      fontSize: 18,
                     ),
                   ),
                 )
               ),
               const SizedBox(
-                height: 55,
+                height: 195,
               ),
               ElevatedButton(
                 onPressed: () {
                   goToUpdateCurrentBookPage(context, currentBook);
                 },
-                child: const Text('update current book'),
+                child: const Text('update current book', style: TextStyle(fontSize: 16)),
+              ),
+              const SizedBox(
+                height: 25,
               ),
               ElevatedButton(
                 onPressed: () {
                   goToRemoveCurrentBookPage(context, currentBook);
                 },
-                child: const Text('remove current book'),
+                child: const Text('remove current book', style: TextStyle(fontSize: 16)),
               ),
 
             ]

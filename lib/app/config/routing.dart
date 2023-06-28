@@ -16,46 +16,47 @@ import '../../presentation/pages/settings/settingsPage.dart';
 
 List<GetPage<dynamic>> get Routing{
   return [
+
     GetPage(
       name: '/login',
       page: () => const LoginPage(),
-      transition: Transition.fadeIn,
+      //transition: Transition.fadeIn,
       binding: LoginRegisterPageBindings(),
     ),
     GetPage(
       name: '/home',
       page: () => HomePage(),
-      transition: Transition.fadeIn,
+      //transition: Transition.fadeIn,
       binding: LoginRegisterPageBindings(),
     ),
     GetPage(
       name: '/editLibrary',
       page: () => EditLibraryPage(),
-      transition: Transition.fadeIn,
+      //transition: Transition.fadeIn,
       binding: EditLibraryBindings(),
     ),
     GetPage(
       name: '/addNewBook',
       page: () => AddNewBookPage(),
-      transition: Transition.fadeIn,
+      //transition: Transition.fadeIn,
       binding: EditLibraryBindings(),
     ),
     GetPage(
       name: '/library',
       page: () => LibraryPage(),
-      transition: Transition.fadeIn,
+      //transition: Transition.fadeIn,
       binding: LibraryPageBindings(),
     ),
       GetPage(
         name: '/settings',
         page: () => const SettingsPage(),
-        transition: Transition.fadeIn,
+        //transition: Transition.fadeIn,
         binding: LoginRegisterPageBindings(),
       ),
       GetPage(
         name: '/recognize',
         page: () => const TreeOfPages(),
-        transition: Transition.fadeIn,
+        //transition: Transition.fadeIn,
         binding: LoginRegisterPageBindings(),
       ),
     //GetPage(name: name, page: page)

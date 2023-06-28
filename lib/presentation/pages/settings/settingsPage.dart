@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
+import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lsm_project/presentation/controllers/quote_controller.dart';
 import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_bar.dart';
 
 import '../auth/auth_controller.dart';
@@ -22,11 +24,14 @@ class _SettingsPageState extends State<SettingsPage>{
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
+  final _bookController = Get.find<BookController>();
+  final _quoteController = Get.find<QuoteController>();
   final RxBool isLogin = true.obs;
   RxBool changePage = false.obs;
 
   Future<void> signOut() async {
     _authController.signOut();
+    _bookController.closeConnection;
   }
   Future<void> goToLoginPage() async{
     //Get.to(const TreeOfPages());
