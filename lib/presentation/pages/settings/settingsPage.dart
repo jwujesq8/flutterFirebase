@@ -78,13 +78,13 @@ class _SettingsPageState extends State<SettingsPage>{
     return Scaffold(
       appBar: AppBar(
         title: const Text('settings'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                signOut();
-              },
-              icon: const Icon(Icons.logout))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         signOut();
+        //       },
+        //       icon: const Icon(Icons.logout))
+        // ],
       ),
       body: Container(
         padding: const EdgeInsets.all(15),
