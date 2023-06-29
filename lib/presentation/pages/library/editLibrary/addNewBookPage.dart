@@ -5,13 +5,12 @@ import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
 import '../../../../domain/entities/book.dart';
-import '../../auth/auth_controller.dart';
+import '../../../controllers/auth_controller.dart';
 import '../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
 
 class AddNewBookPage extends StatelessWidget{
   AddNewBookPage({Key? key}) : super(key: key);
-  final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
 
   final TextEditingController _titleController = TextEditingController();
@@ -26,9 +25,9 @@ class AddNewBookPage extends StatelessWidget{
   RxInt booksLength = 0.obs;
   RxList<Book> books = <Book>[].obs;
 
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
 
 
@@ -98,7 +97,7 @@ class AddNewBookPage extends StatelessWidget{
                       _titleController.text, _authorController.text, _pagesController.text,
                     _readController.text, _likeController.text, _opinionController.text
                   );
-                  bool answer = await _bookController.addBookToLibrary(book, await userId());
+                  bool answer = await _bookController.addBookToLibrary(book, await getUserId());
                   print("ADDED???");
                   print(answer);
                   Get.toNamed('library');

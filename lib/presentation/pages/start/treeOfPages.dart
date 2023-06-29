@@ -11,7 +11,7 @@ import '../../../domain/usecases/get_books_list_usecase.dart';
 import 'package:flutter/material.dart';
 import '../../../domain/usecases/sign_out_user_usecase.dart';
 import '../../../domain/usecases/login_user.dart';
-import 'auth_controller.dart';
+import '../../controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class TreeOfPages extends StatefulWidget {
@@ -22,28 +22,45 @@ class TreeOfPages extends StatefulWidget {
 }
 
 class _TreeOfPagesState extends State<TreeOfPages> {
-  final FirebaseAuthSource dataSource = FirebaseAuthSource();
-  final QuoteDataSource quoteDataSource = QuoteDataSource();
-  final AuthController _authController = Get.find<AuthController>();// Initialize AuthController using Get.put
-  final QuoteController _quoteController = Get.find<QuoteController>();
+  final AuthController _authController = Get.find<AuthController>();
 
+  @override
+  void initState() {
+    super.initState();
+    checkUserStatus();
+  }
 
+  Future<void> checkUserStatus() async {
+    var user = await _authController.getLoggedUser.execute();
+    if (user.email.isNotEmpty) {
+      _authController.getFirstBooks();
+      _authController.getFirstQuotesList.execute(user.email);
+      navigateToHomePage();
+    } else {
+      navigateToLoginPage();
+    }
+  }
+
+  void navigateToHomePage() {
+    Get.offAllNamed('/home');
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => HomePage()),
+    // );
+  }
+
+  void navigateToLoginPage() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      final user = _authController.user;
-      if (user != null && user.email.isNotEmpty) {
-        _authController.getFirstBooksList.execute(user.email);
-        _authController.getFirstQuotesList.execute(user.email);
-        //_quoteController.getStartQuotesList(user.email);
-        return HomePage();
-      } else {
-        return LoginPage();
-      }
-    });
+    return Scaffold(
+      body: Container(),
+    );
   }
-
-
-
 }
+

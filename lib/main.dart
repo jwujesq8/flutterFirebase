@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
-import 'package:lsm_project/presentation/pages/auth/treeOfPages.dart';
+import 'package:lsm_project/presentation/pages/start/treeOfPages.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lsm_project/app/config/routing.dart' as App;
 import 'package:get/get.dart';
@@ -24,17 +24,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      //title: 'Flutter Demo',
+        smartManagement: SmartManagement.onlyBuilder,
+        //title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.primaries[16]),
         fontFamily: 'Ysabeau'
       ),
-      initialRoute: '/',
+      initialRoute: '/recognize',
       defaultTransition: Transition.fadeIn,
-      getPages: App.Routing,
-      home: TreeOfPages(),
+      getPages: App.Routing
     );
   }
 }

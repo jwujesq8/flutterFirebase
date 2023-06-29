@@ -5,7 +5,7 @@ import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
 import '../../../../../domain/entities/book.dart';
-import '../../../auth/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
 

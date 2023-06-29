@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lsm_project/presentation/pages/auth/loginRegisterPage.dart';
 import 'package:lsm_project/presentation/pages/auth/loginRegisterPageBindings.dart';
-import 'package:lsm_project/presentation/pages/auth/treeOfPages.dart';
+import 'package:lsm_project/presentation/pages/start/treeOfPages.dart';
 import 'package:lsm_project/presentation/pages/home/homePage.dart';
 import 'package:lsm_project/presentation/pages/home/homePageBindings.dart';
 import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/editCurrentBookPage.dart';
@@ -10,12 +10,20 @@ import 'package:lsm_project/presentation/pages/library/libraryPageBindings.dart'
 
 import '../../presentation/pages/library/editLibrary/addNewBookPage.dart';
 import '../../presentation/pages/library/editLibrary/editLibrary.dart';
-import '../../presentation/pages/library/editLibrary/editLibraryBindings.dart';
+import '../../presentation/pages/library/editLibrary/___editLibraryBindings.dart';
 import '../../presentation/pages/settings/settingsPage.dart';
+import '../../presentation/pages/start/treeOfPagesBindings.dart';
 
 
 List<GetPage<dynamic>> get Routing{
   return [
+    GetPage(
+      name: '/recognize',
+      page: () => const TreeOfPages(),
+      //transition: Transition.fadeIn,
+      binding: TreeOfPagesBindings(),
+    ),
+
 
     GetPage(
       name: '/login',
@@ -27,19 +35,7 @@ List<GetPage<dynamic>> get Routing{
       name: '/home',
       page: () => HomePage(),
       //transition: Transition.fadeIn,
-      binding: LoginRegisterPageBindings(),
-    ),
-    GetPage(
-      name: '/editLibrary',
-      page: () => EditLibraryPage(),
-      //transition: Transition.fadeIn,
-      binding: EditLibraryBindings(),
-    ),
-    GetPage(
-      name: '/addNewBook',
-      page: () => AddNewBookPage(),
-      //transition: Transition.fadeIn,
-      binding: EditLibraryBindings(),
+      binding: HomePageBindings(),
     ),
     GetPage(
       name: '/library',
@@ -47,18 +43,27 @@ List<GetPage<dynamic>> get Routing{
       //transition: Transition.fadeIn,
       binding: LibraryPageBindings(),
     ),
+    GetPage(
+      name: '/editLibrary',
+      page: () => EditLibraryPage(),
+      //transition: Transition.fadeIn,
+      binding: LibraryPageBindings(),
+    ),
+
+    GetPage(
+      name: '/addNewBook',
+      page: () => AddNewBookPage(),
+      //transition: Transition.fadeIn,
+      binding: LibraryPageBindings(),
+    ),
+    
       GetPage(
         name: '/settings',
         page: () => const SettingsPage(),
         //transition: Transition.fadeIn,
         binding: LibraryPageBindings(),
       ),
-      GetPage(
-        name: '/recognize',
-        page: () => const TreeOfPages(),
-        //transition: Transition.fadeIn,
-        binding: LoginRegisterPageBindings(),
-      ),
+
     //GetPage(name: name, page: page)
   ];
 }

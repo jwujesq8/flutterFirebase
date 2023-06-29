@@ -9,21 +9,24 @@ import '../../domain/usecases/get_logged_user.dart';
 class QuoteController extends GetxController {
   GetLoggedUser getLoggedUser;
   GetExistingQuotesList getExistingQuotesList;
-  GetFirstQuotesList getFirstQuotesList;
 
   QuoteController({
     required this.getLoggedUser,
-    required this.getExistingQuotesList,
-    required this.getFirstQuotesList
+    required this.getExistingQuotesList
   });
 
 
-  final RxList<Quote> _list = <Quote>[].obs;
+  final RxList<Quote> _quotes = <Quote>[].obs;
 
-  Future<List<Quote>> getStartQuotesList(String userId) async {
+  Future<String> getUserId() async{
+    var user = await getLoggedUser.execute();
+    return user.email;
+  }
+
+  Future<List<Quote>> getExistingQuotes(String userId) async {
     if(userId.isNotEmpty){
-      _list.value = await getFirstQuotesList.execute(userId);
-      return _list.value;
+      _quotes.value = await getExistingQuotesList.execute(userId);
+      return _quotes.value;
     }
     return [];
   }
@@ -31,18 +34,8 @@ class QuoteController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    var user = await getLoggedUser.execute();
-    //_list.value = await getStartQuotesList(user.email);
-    _list.value = await getExistingQuotesList.execute(user.email);
-  }
-
-
-  Future<List<Quote>> getQuotesList(String userId) async {
-    if(userId.isNotEmpty){
-      _list.value = await getExistingQuotesList.execute(userId);
-      return _list.value;
-    }
-    return [];
+    var userId = await getUserId();
+    _quotes.value = await getExistingQuotes(userId);
   }
 
 

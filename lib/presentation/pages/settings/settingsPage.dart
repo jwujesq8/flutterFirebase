@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:lsm_project/presentation/controllers/quote_controller.dart';
 import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_bar.dart';
 
-import '../auth/auth_controller.dart';
+import '../../controllers/auth_controller.dart';
 import '../auth/loginRegisterPage.dart';
-import '../auth/treeOfPages.dart';
+import '../start/treeOfPages.dart';
 
 class SettingsPage extends StatefulWidget{
   const SettingsPage({Key? key}) : super (key:key);

@@ -14,10 +14,13 @@ class FirebaseAuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthUser> signInWithEmailAndPassword(String email, String password) async {
+  Future<bool> signInWithEmailAndPassword(String email, String password) async {
     var user = await _dataSource.signInWithEmailAndPassword(
         email: email, password: password);
-    return user.toEntity();
+    if(user.email.isNotEmpty){
+      return true;
+    }
+    return false;
   }
 
   @override

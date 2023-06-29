@@ -6,15 +6,17 @@ import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/removeCurrentBook.dart';
 import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/updateCurrentBookPage.dart';
 
+import '../../../../../app/util/dependency_creator.dart';
 import '../../../../../domain/entities/book.dart';
-import '../../../auth/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../libraryPageBindings.dart';
 
 class EditCurrentBookPage extends StatelessWidget{
   final Book currentBook;
   EditCurrentBookPage({Key? key, required this.currentBook}) : super(key: key);
-  final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
 
   final TextEditingController _titleController = TextEditingController();
@@ -26,9 +28,9 @@ class EditCurrentBookPage extends StatelessWidget{
 
 
 
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
   void goToUpdateCurrentBookPage(BuildContext context, Book book) {
     Navigator.push(
@@ -49,7 +51,7 @@ class EditCurrentBookPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
+    DependencyCreator.init();
 
     return Scaffold(
       appBar: AppBar(

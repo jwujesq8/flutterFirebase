@@ -6,7 +6,7 @@ class LoginUserUsecase {
 
   LoginUserUsecase(this._repository);
 
-  Future<AuthUser> execute(String email, String password) async {
+  Future<bool> execute(String email, String password) async {
     return await _repository.signInWithEmailAndPassword(email, password);
   }
 }

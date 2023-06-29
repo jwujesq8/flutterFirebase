@@ -6,30 +6,24 @@ import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
 import '../../../domain/entities/book.dart';
-import '../auth/auth_controller.dart';
+import '../../controllers/auth_controller.dart';
 import '../navigation_bar/custom_navigation_bar.dart';
 
 class LibraryPage extends StatelessWidget{
   LibraryPage({Key? key}) : super(key: key);
-  final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
   RxInt booksLength = 0.obs;
   RxList<Book> books = <Book>[].obs;
 
 
-  //final User? user = FirebaseAuthSource().currentUser;
-  Future<void> signOut() async {
-    await _authController.signOutUserUsecase.execute();
-  }
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
-    //return Text(user?.email ?? 'user email');
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
 
   Future<void> getLibrary() async {
-    var userId = await _bookController.getLoggedUsername();
-    List<Book> library = await _bookController.getExistingLibrary(userId.email);
+    var userId = await getUserId();
+    List<Book> library = await _bookController.getExistingLibrary(userId);
     books.value = library;
   }
 

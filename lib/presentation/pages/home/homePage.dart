@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/home_pages_controller.dart';
 import 'package:lsm_project/presentation/controllers/quote_controller.dart';
-import 'package:lsm_project/presentation/pages/auth/auth_controller.dart';
+import 'package:lsm_project/presentation/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_bar.dart';
@@ -15,25 +15,15 @@ import '../../../domain/entities/quote.dart';
 
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key: key);
-  //final HomeAppController bottomBarController = Get.find();
-  final _authController = Get.find<AuthController>();
   final _quoteController = Get.find<QuoteController>();
   Rx<Quote> quote = Quote(id: '', text: '', book: "").obs;
-  //final User? user = FirebaseAuthSource().currentUser;
 
-  Future<void> signOut() async {
-    await _authController.signOutUserUsecase.execute();
-  }
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
-  }
+
   Future<void> randomQuote() async {
     Random random = Random();
 
-    var user = _authController.user?.email;
-    print(user);
-    List<Quote> quotesList = await _quoteController.getQuotesList(user!);
+    var userId = await _quoteController.getUserId();
+    List<Quote> quotesList = await _quoteController.getExistingQuotes(userId);
 
     print("QUOTES FROM HOME:");
     print(quotesList);
@@ -44,7 +34,6 @@ class HomePage extends StatelessWidget{
 
   }
   Widget createQuoteCard() {
-    //randomQuote();
     return Padding(
         padding: EdgeInsets.all(10),
         child: Card(
