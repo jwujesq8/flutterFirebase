@@ -18,9 +18,9 @@ class QuoteController extends GetxController {
 
   final RxList<Quote> _quotes = <Quote>[].obs;
 
-  Future<String> getUserId() async{
+  Future<AuthUser> getUser() async{
     var user = await getLoggedUser.execute();
-    return user.email;
+    return user;
   }
 
   Future<List<Quote>> getExistingQuotes(String userId) async {
@@ -34,8 +34,8 @@ class QuoteController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    var userId = await getUserId();
-    _quotes.value = await getExistingQuotes(userId);
+    var userId = await getUser();
+    _quotes.value = await getExistingQuotes(userId.email);
   }
 
 
