@@ -33,8 +33,8 @@ class _TreeOfPagesState extends State<TreeOfPages> {
   Future<void> checkUserStatus() async {
     var user = await _authController.getLoggedUser.execute();
     if (user.email.isNotEmpty) {
-      _authController.getFirstBooks();
-      _authController.getFirstQuotesList.execute(user.email);
+      await _authController.getFirstBooks();
+      await _authController.getFirstQuotesList.execute(user.email);
       navigateToHomePage();
     } else {
       navigateToLoginPage();
