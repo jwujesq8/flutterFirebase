@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
-import 'package:lsm_project/presentation/pages/auth/auth_controller.dart';
+import 'package:lsm_project/presentation/controllers/auth_controller.dart';
 import 'package:get/get.dart';
+import 'package:lsm_project/presentation/pages/home/homePage.dart';
 
 import '../../../domain/usecases/get_books_list_usecase.dart';
 import '../../../domain/usecases/get_logged_user.dart';
@@ -22,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
   bool isLogin = true;
   final _authController = Get.find<AuthController>();
+
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -59,7 +61,14 @@ class _LoginPageState extends State<LoginPage> {
   }
   Widget submit(){
     return ElevatedButton(
-        onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
+        onPressed: () async {
+          if(isLogin){
+            await signInWithEmailAndPassword();
+          } else {
+            await createUserWithEmailAndPassword();
+          }
+        },
+        //isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
         child: Text(isLogin ? 'login' : 'register')
     );
   }

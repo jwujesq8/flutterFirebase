@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:lsm_project/data/models/book_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../domain/entities/book.dart';
 
 class BookDataSource {
@@ -13,7 +12,6 @@ class BookDataSource {
 
   Future<List<Book>> getLibrary(String userId) async {
     final ref = FirebaseFirestore.instance.collection('library_$userId');
-    //final ref = getFirestoreCollection('library_$userId');
 
     final snapshot = await ref.get();
     if (snapshot.size > 0) {
@@ -36,7 +34,5 @@ class BookDataSource {
       print('No data available.');
       return [];
     }
-
-
   }
 }

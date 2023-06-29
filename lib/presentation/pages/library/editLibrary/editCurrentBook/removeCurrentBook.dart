@@ -5,19 +5,18 @@ import 'package:lsm_project/data/data_sources/firebase_auth_source.dart';
 import 'package:lsm_project/presentation/controllers/book_controller.dart';
 
 import '../../../../../domain/entities/book.dart';
-import '../../../auth/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
 
 class RemoveCurrentBookPage extends StatelessWidget{
   final Book currentBook;
   RemoveCurrentBookPage({Key? key, required this.currentBook}) : super(key: key);
-  final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
 
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
 
   @override
@@ -39,9 +38,10 @@ class RemoveCurrentBookPage extends StatelessWidget{
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff3b2a2f),
-                  fontSize: 22,
+                  fontSize: 27,
                 ),
               ),
+              const SizedBox(height: 30),
               Card(
                   child: Column(
                     children: [
@@ -51,7 +51,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff3b2a2f),
-                            fontSize: 15,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -61,7 +61,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff543c43),
-                            fontSize: 11,
+                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -75,7 +75,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 14,
                                 ),
                               ),
                               Text(
@@ -83,7 +83,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff543c43),
-                                  fontSize: 11,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -99,7 +99,7 @@ class RemoveCurrentBookPage extends StatelessWidget{
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xff543c43),
-                        fontSize: 15,
+                        fontSize: 18,
                       ),
                     ),
                   )
@@ -112,14 +112,14 @@ class RemoveCurrentBookPage extends StatelessWidget{
                       onPressed: (){
                         Get.offAllNamed('/library');
                       },
-                      child: const Text("no")),
+                      child: const Text("no", style: TextStyle(fontSize: 18))),
                   ElevatedButton(
                       onPressed: () async {
-                        bool answer = await _bookController.removeBookFromLibrary(currentBook, await userId());
+                        bool answer = await _bookController.removeBookFromLibrary(currentBook, await getUserId());
 
                         Get.offAllNamed('/library');
                       },
-                      child: const Text("yes")),
+                      child: const Text("yes", style: TextStyle(fontSize: 18))),
                 ],
               )
 

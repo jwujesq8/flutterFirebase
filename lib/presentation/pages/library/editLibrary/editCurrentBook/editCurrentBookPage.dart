@@ -6,15 +6,18 @@ import 'package:lsm_project/presentation/controllers/book_controller.dart';
 import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/removeCurrentBook.dart';
 import 'package:lsm_project/presentation/pages/library/editLibrary/editCurrentBook/updateCurrentBookPage.dart';
 
+import '../../../../../app/util/dependency_creator.dart';
 import '../../../../../domain/entities/book.dart';
-import '../../../auth/auth_controller.dart';
+import '../../../../controllers/auth_controller.dart';
 import '../../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
+import 'package:get/get.dart';
+
+import '../../libraryPageBindings.dart';
 
 class EditCurrentBookPage extends StatelessWidget{
   final Book currentBook;
   EditCurrentBookPage({Key? key, required this.currentBook}) : super(key: key);
-  final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
 
   final TextEditingController _titleController = TextEditingController();
@@ -26,9 +29,9 @@ class EditCurrentBookPage extends StatelessWidget{
 
 
 
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
   void goToUpdateCurrentBookPage(BuildContext context, Book book) {
     Navigator.push(
@@ -50,7 +53,6 @@ class EditCurrentBookPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('edit current book'),
@@ -69,7 +71,7 @@ class EditCurrentBookPage extends StatelessWidget{
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff3b2a2f),
-                                fontSize: 15,
+                                fontSize: 18,
                               ),
                             ),
                           ),
@@ -79,7 +81,7 @@ class EditCurrentBookPage extends StatelessWidget{
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff543c43),
-                                fontSize: 11,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -92,7 +94,7 @@ class EditCurrentBookPage extends StatelessWidget{
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff543c43),
-                                      fontSize: 11,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   Text(
@@ -100,7 +102,7 @@ class EditCurrentBookPage extends StatelessWidget{
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff543c43),
-                                      fontSize: 11,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -116,25 +118,28 @@ class EditCurrentBookPage extends StatelessWidget{
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff543c43),
-                      fontSize: 15,
+                      fontSize: 18,
                     ),
                   ),
                 )
               ),
               const SizedBox(
-                height: 55,
+                height: 195,
               ),
               ElevatedButton(
                 onPressed: () {
                   goToUpdateCurrentBookPage(context, currentBook);
                 },
-                child: const Text('update current book'),
+                child: const Text('update current book', style: TextStyle(fontSize: 16)),
+              ),
+              const SizedBox(
+                height: 25,
               ),
               ElevatedButton(
                 onPressed: () {
                   goToRemoveCurrentBookPage(context, currentBook);
                 },
-                child: const Text('remove current book'),
+                child: const Text('remove current book', style: TextStyle(fontSize: 16)),
               ),
 
             ]
