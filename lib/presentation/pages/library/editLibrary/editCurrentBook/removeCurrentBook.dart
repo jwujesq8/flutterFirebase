@@ -110,14 +110,16 @@ class RemoveCurrentBookPage extends StatelessWidget{
                 children: [
                   ElevatedButton(
                       onPressed: (){
-                        Get.offAllNamed('/library');
+                        Get.offAllNamed('/editLibrary');
+                        //Get.offAllNamed('/library');
                       },
                       child: const Text("no", style: TextStyle(fontSize: 18))),
                   ElevatedButton(
                       onPressed: () async {
                         bool answer = await _bookController.removeBookFromLibrary(currentBook, await getUserId());
 
-                        Get.offAllNamed('/library');
+                        Get.offAllNamed('/editLibrary');
+                        //Get.offAllNamed('/library');
                       },
                       child: const Text("yes", style: TextStyle(fontSize: 18))),
                 ],

@@ -27,6 +27,12 @@ class LibraryPage extends StatelessWidget{
     books.value = library;
   }
 
+  // Future<bool> saveAll() async {
+  //   var userId = await _bookController.getUserId();
+  //   bool answer = await _bookController.saveChangesBeforeLogout(userId);
+  //   return answer;
+  // }
+
 
 
   Widget createBooksCard(Book book) {
@@ -101,6 +107,7 @@ class LibraryPage extends StatelessWidget{
   Widget build(BuildContext context) {
     getLibrary();
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         title: const Text('library'),
         actions: [

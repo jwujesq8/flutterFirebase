@@ -6,6 +6,7 @@ import 'package:lsm_project/presentation/controllers/home_pages_controller.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lsm_project/presentation/controllers/quote_controller.dart';
+import 'package:lsm_project/presentation/controllers/settings_controller.dart';
 import 'package:lsm_project/presentation/pages/navigation_bar/custom_navigation_bar.dart';
 
 import '../../controllers/auth_controller.dart';
@@ -24,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage>{
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
-  //final _bookController = Get.find<BookController>();
+  final _settingsController = Get.find<SettingsController>();
   final RxBool isLogin = true.obs;
   RxBool changePage = false.obs;
 
@@ -67,14 +68,14 @@ class _SettingsPageState extends State<SettingsPage>{
         }
         changePage.toggle();
       },
-      child: Text(changePage.value ? 'go back' : 'log out'),
+      child: Text(changePage.value ? 'go back' : 'log out', style: TextStyle(fontSize: 18),),
     ));
   }
-  // Future<void> saveAll() async{
-  //   var user = await _authController.getLoggedUser.execute();
-  //   bool answer = await _bookController.saveChangesBeforeLogout(user.email);
-  //   print(answer);
-  // }
+  Future<void> saveAll() async{
+    var userId = await _authController.getUserId();
+    bool answer = await _settingsController.saveAll(userId);
+    print(answer);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,12 +108,15 @@ class _SettingsPageState extends State<SettingsPage>{
                 }
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
-            // ElevatedButton(
-            //     onPressed: saveAll,
-            //     child: Text("save changes", style: TextStyle(fontSize: 20),)),
+            ElevatedButton(
+                onPressed: saveAll,
+                child: Text("save changes", style: TextStyle(fontSize: 20),)),
+            const SizedBox(
+              height: 20,
+            ),
             switchedButtonForLogOut(),
 
           ],
