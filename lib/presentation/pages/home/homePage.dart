@@ -24,13 +24,21 @@ class HomePage extends StatelessWidget{
 
 
   Future<void> randomQuote() async {
+
     Random random = Random();
 
     AuthUser userId = await _quoteController.getUser();
     List<Quote> quotesList = await _quoteController.getExistingQuotes(userId.email);
 
-    int randomInt = random.nextInt(quotesList.length);
-    quote.value = quotesList[randomInt];
+    if(quotesList.isEmpty){
+      quote.value = Quote(id: '000', text: '...In fact, I understand her concern. Indeed, Morphinum hydrochloricum is a formidable thing. '
+          'The habit of it is created very quickly. But a little habit isn\'t morphinism, is it?..',
+          book: 'Morphine');
+    } else {
+      int randomInt = random.nextInt(quotesList.length);
+      quote.value = quotesList[randomInt];
+    }
+
 
   }
 
@@ -45,7 +53,8 @@ class HomePage extends StatelessWidget{
         } else {
           Object count = snapshot.data ?? 0;
           readBooks.value = count.toString();
-          return Text(readBooks.value);
+          return Text(readBooks.value,
+              style: const TextStyle(fontSize: 18));
         }
       },
     );
@@ -102,7 +111,7 @@ class HomePage extends StatelessWidget{
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 15),
+                              padding: EdgeInsets.only(right: 18),
                               child: Text(
                                 quote.value.book,
                                 style: const TextStyle(
@@ -166,7 +175,10 @@ class HomePage extends StatelessWidget{
                      child: Card(
                        child: Column(
                          children: [
-                           Text("books read"),
+                           const Text("books read",
+                           style: TextStyle(
+                             fontSize: 17
+                           )),
                            createReadBooksStatistics(),
                            //showPagesRead(),
                          ],
@@ -181,8 +193,12 @@ class HomePage extends StatelessWidget{
                      child: Card(
                        child: Column(
                          children: [
-                           Text("pages read"),
-                           Obx(() => Text(readPages.value.toString())),
+                           const Text("pages read",
+                            style: TextStyle(
+                            fontSize: 17
+                            )),
+                           Obx(() => Text(readPages.value.toString(),
+                           style: const TextStyle(fontSize: 18),)),
                          ],
                        ),
                      ),
