@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key: key);
   final _quoteController = Get.find<QuoteController>();
   Rx<Quote> quote = Quote(id: '', text: '', book: "").obs;
+  Rx<String> readBooks = "0".obs;
 
 
   Future<void> randomQuote() async {
@@ -32,6 +34,23 @@ class HomePage extends StatelessWidget{
     quote.value = quotesList[randomInt];
     print(quote.value.text);
 
+  }
+  Future<void> getStatistics() async{
+    var userId = _quoteController.getUserId();
+    try {
+      final rawStatisticsRef = await FirebaseFirestore.instance.collection('library_$userId');
+      QuerySnapshot querySnapshot = await rawStatisticsRef.where('read', isEqualTo: true).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var count = querySnapshot.docs.length;
+        readBooks.value =  count.toString();
+      } else {
+        readBooks.value =  "0"; // Book not found
+      }
+    } catch (e) {
+      print('Error getting book: $e');
+      readBooks.value =  "0";
+    }
   }
   Widget createQuoteCard() {
     return Padding(
@@ -83,6 +102,7 @@ class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     randomQuote();
+    getStatistics();
 
     return Scaffold(
       appBar: AppBar(
@@ -121,7 +141,8 @@ class HomePage extends StatelessWidget{
                        child: Column(
                          children: const [
                            Text("pages read"),
-                           //showPagesRead(),
+                           Text("none for now"
+                           ),
                          ],
                        ),
                      ),
@@ -133,9 +154,9 @@ class HomePage extends StatelessWidget{
                      padding: EdgeInsets.only(right: 15),
                      child: Card(
                        child: Column(
-                         children: const [
-                           Text("books read"),
-                           //showBooksRead(),
+                         children: [
+                           const Text("books read"),
+                           Obx(() => Text(readBooks.value)),
                          ],
                        ),
                      ),
