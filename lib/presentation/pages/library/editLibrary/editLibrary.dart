@@ -33,6 +33,11 @@ class EditLibraryPage extends StatelessWidget{
       ),
     );
   }
+  Future<bool> saveAll() async {
+      var userId = await _bookController.getUserId();
+      bool answer = await _bookController.saveChangesBeforeLogout(userId);
+      return answer;
+    }
 
   Widget createBooksCard(BuildContext context, Book book) {
     return Row(
@@ -141,6 +146,20 @@ class EditLibraryPage extends StatelessWidget{
                   },
                 ),)
               ),
+              SizedBox(
+                height: 40,
+                width: 70,
+                child: FloatingActionButton.extended(
+                  icon: Icon(Icons.save_as_outlined),
+                  backgroundColor: Color(0xcc543c43),
+                  foregroundColor: Colors.white,
+                  label: Text('save'),
+                  onPressed: () async{
+                    await saveAll();
+                    Get.offAllNamed('/library');
+                  },
+                ),
+              )
             ]
 
         ),

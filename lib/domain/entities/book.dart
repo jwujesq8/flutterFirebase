@@ -16,4 +16,17 @@ class Book {
     this.like,
     this.opinion
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'pages': pages,
+      'read': read,
+      'like': like,
+      'opinion': opinion,
+    };
+  }
+
 }

@@ -100,9 +100,9 @@ class AddNewBookPage extends StatelessWidget{
                   bool answer = await _bookController.addBookToLibrary(book, await getUserId());
                   print("ADDED???");
                   print(answer);
-                  Get.toNamed('library');
+                  Get.toNamed('/editLibrary');
                 },
-                child: Text('Add Book'),
+                child: Text('add Book'),
               ),
 
             ]

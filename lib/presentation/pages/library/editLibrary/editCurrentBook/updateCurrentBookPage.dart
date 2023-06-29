@@ -65,8 +65,10 @@ class UpdateCurrentBookPage extends StatelessWidget{
       _like = false;
     }
     String _opinion = opinion.toString();
+    var uuid = Uuid();
     return Book(
-        id: Uuid().v1.toString(),
+        //id: Uuid().v1.toString(),
+        id: uuid.v1(),
         title: _title,
         author: _author,
         pages: _pages,
@@ -103,7 +105,7 @@ class UpdateCurrentBookPage extends StatelessWidget{
                         _readController.text, _likeController.text, _opinionController.text);
                     await _bookController.updateBook(currentBook, newBook, await getUserId());
 
-                    Get.toNamed('library');
+                    Get.toNamed('/editLibrary');
                   },
                   child: const Text("confirm changes", style: TextStyle( fontSize: 18),))
             ]
