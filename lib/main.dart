@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        smartManagement: SmartManagement.onlyBuilder,
         //title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

@@ -13,7 +13,7 @@ class QuoteDataSource {
   Future<List<Quote>> getQuotes(String userId) async {
     print("USERiD in quotes ds:");
     print(userId);
-    final ref = FirebaseFirestore.instance.collection('quotes_$userId');
+    final ref = FirebaseFirestore.instance.collection("quotes_$userId");
 
     final snapshot = await ref.get();
     if (snapshot.size > 0) {

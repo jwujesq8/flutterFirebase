@@ -12,6 +12,7 @@ import '../../presentation/pages/library/editLibrary/addNewBookPage.dart';
 import '../../presentation/pages/library/editLibrary/editLibrary.dart';
 import '../../presentation/pages/library/editLibrary/___editLibraryBindings.dart';
 import '../../presentation/pages/settings/settingsPage.dart';
+import '../../presentation/pages/settings/settingsPageBindings.dart';
 import '../../presentation/pages/start/treeOfPagesBindings.dart';
 
 
@@ -61,7 +62,7 @@ List<GetPage<dynamic>> get Routing{
         name: '/settings',
         page: () => const SettingsPage(),
         //transition: Transition.fadeIn,
-        binding: LibraryPageBindings(),
+        binding: SettingsPageBindings(),
       ),
 
     //GetPage(name: name, page: page)

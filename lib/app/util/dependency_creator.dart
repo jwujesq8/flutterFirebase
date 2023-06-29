@@ -18,11 +18,10 @@ import '../../domain/usecases/login_user.dart';
 import '../../domain/usecases/sign_out_user_usecase.dart';
 import '../../presentation/controllers/quote_controller.dart';
 
-class DependencyCreator extends Bindings{
+class DependencyCreator {
   /// Initialize all dependencies
-  @override
-  void dependencies() {
-    Get.put(FirebaseAuthSource(Get.find()));
+  static init() {
+    Get.lazyPut<FirebaseAuthSource>(() => FirebaseAuthSource());
     Get.lazyPut<AuthRepository>(() => FirebaseAuthRepositoryImpl(Get.find()));
     Get.lazyPut<BookDataSource>(() => BookDataSource());
     Get.lazyPut<BookRepository>(() => BookRepositoryImpl(Get.find()));

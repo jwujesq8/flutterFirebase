@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage>{
 
   //final User? user = FirebaseAuthSource().currentUser;
   final _authController = Get.find<AuthController>();
-  final _bookController = Get.find<BookController>();
+  //final _bookController = Get.find<BookController>();
   final RxBool isLogin = true.obs;
   RxBool changePage = false.obs;
 
@@ -32,14 +32,14 @@ class _SettingsPageState extends State<SettingsPage>{
     _authController.signOut();
   }
   Future<void> goToLoginPage() async{
-    //Get.to(const TreeOfPages());
-    Get.offAllNamed('/recognize');
+    Get.to(const TreeOfPages());
+    //Get.offAllNamed('/recognize');
   }
   Future<Widget> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    if (user != null){
+    var userId = await _authController.getUserId();
+    if (userId.isNotEmpty){
       return Center(
-        child: Text(user.email, style: TextStyle(
+        child: Text(userId, style: const TextStyle(
           fontSize: 20
         ),),
       );
@@ -69,11 +69,11 @@ class _SettingsPageState extends State<SettingsPage>{
       child: Text(changePage.value ? 'go back' : 'log out'),
     ));
   }
-  Future<void> saveAll() async{
-    var user = await _authController.getLoggedUser.execute();
-    bool answer = await _bookController.saveChangesBeforeLogout(user.email);
-    print(answer);
-  }
+  // Future<void> saveAll() async{
+  //   var user = await _authController.getLoggedUser.execute();
+  //   bool answer = await _bookController.saveChangesBeforeLogout(user.email);
+  //   print(answer);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,9 @@ class _SettingsPageState extends State<SettingsPage>{
             SizedBox(
               height: 80,
             ),
-            ElevatedButton(
-                onPressed: saveAll,
-                child: Text("save changes", style: TextStyle(fontSize: 20),)),
+            // ElevatedButton(
+            //     onPressed: saveAll,
+            //     child: Text("save changes", style: TextStyle(fontSize: 20),)),
             switchedButtonForLogOut(),
 
           ],

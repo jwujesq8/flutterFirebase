@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 class UpdateCurrentBookPage extends StatelessWidget{
   final Book currentBook;
   UpdateCurrentBookPage({Key? key, required this.currentBook}) : super(key: key);
-  final _authController = Get.find<AuthController>();
+  //final _authController = Get.find<AuthController>();
   final _bookController = Get.find<BookController>();
 
   final TextEditingController _titleController = TextEditingController();
@@ -23,9 +23,9 @@ class UpdateCurrentBookPage extends StatelessWidget{
   final TextEditingController _opinionController = TextEditingController();
 
 
-  Future<String> userId() async{
-    var user = await _authController.getLoggedUser.execute();
-    return user.email;
+  Future<String> getUserId() async{
+    var user = await _bookController.getUserId();
+    return user;
   }
 
   Widget createTextField(TextEditingController controller, String title, String hintText) {
@@ -101,7 +101,7 @@ class UpdateCurrentBookPage extends StatelessWidget{
                     Book newBook = createBook(_titleController.text,
                         _authorController.text, _pagesController.text,
                         _readController.text, _likeController.text, _opinionController.text);
-                    await _bookController.updateBook(currentBook, newBook, await userId());
+                    await _bookController.updateBook(currentBook, newBook, await getUserId());
 
                     Get.toNamed('library');
                   },

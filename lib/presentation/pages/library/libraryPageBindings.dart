@@ -26,6 +26,10 @@ import '../../controllers/auth_controller.dart';
 class LibraryPageBindings extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut<FirebaseAuthSource>(() => FirebaseAuthSource());
+    Get.lazyPut<AuthRepository>(() => FirebaseAuthRepositoryImpl(Get.find()));
+    Get.lazyPut<BookDataSource>(() => BookDataSource());
+    Get.lazyPut<BookRepository>(() => BookRepositoryImpl(Get.find()));
         Get.put(BookController(
           addBook: Get.put(AddBook(Get.find())),
           getExistingBooksList: Get.put(GetExistingBooksList(Get.find())),

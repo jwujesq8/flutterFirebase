@@ -11,6 +11,7 @@ import '../../../../../domain/entities/book.dart';
 import '../../../../controllers/auth_controller.dart';
 import '../../../navigation_bar/custom_navigation_bar.dart';
 import 'package:uuid/uuid.dart';
+import 'package:get/get.dart';
 
 import '../../libraryPageBindings.dart';
 
@@ -51,7 +52,6 @@ class EditCurrentBookPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    DependencyCreator.init();
 
     return Scaffold(
       appBar: AppBar(
