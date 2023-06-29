@@ -71,11 +71,7 @@ class _SettingsPageState extends State<SettingsPage>{
       child: Text(changePage.value ? 'go back' : 'log out', style: TextStyle(fontSize: 18),),
     ));
   }
-  Future<void> saveAll() async{
-    var userId = await _authController.getUserId();
-    bool answer = await _settingsController.saveAll(userId);
-    print(answer);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +106,6 @@ class _SettingsPageState extends State<SettingsPage>{
             ),
             const SizedBox(
               height: 80,
-            ),
-            ElevatedButton(
-                onPressed: saveAll,
-                child: Text("save changes", style: TextStyle(fontSize: 20),)),
-            const SizedBox(
-              height: 20,
             ),
             switchedButtonForLogOut(),
 
