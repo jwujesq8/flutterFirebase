@@ -32,8 +32,8 @@ class _SettingsPageState extends State<SettingsPage>{
     _authController.signOut();
   }
   Future<void> goToLoginPage() async{
-    Get.to(const TreeOfPages());
-    //Get.offAllNamed('/recognize');
+    //Get.to(const TreeOfPages());
+    Get.offAllNamed('/recognize');
   }
   Future<Widget> userId() async{
     var userId = await _authController.getUserId();
@@ -51,7 +51,8 @@ class _SettingsPageState extends State<SettingsPage>{
     return ElevatedButton(
         onPressed:() async{
           signOut;
-          Get.to(() => const TreeOfPages());
+          Get.offAllNamed('/recognize');
+          //Get.to(() => const TreeOfPages());
         },
         child: const Text('sign out'),
     );

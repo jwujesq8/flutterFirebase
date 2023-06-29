@@ -61,7 +61,14 @@ class _LoginPageState extends State<LoginPage> {
   }
   Widget submit(){
     return ElevatedButton(
-        onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
+        onPressed: () async {
+          if(isLogin){
+            await signInWithEmailAndPassword();
+          } else {
+            await createUserWithEmailAndPassword();
+          }
+        },
+        //isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
         child: Text(isLogin ? 'login' : 'register')
     );
   }

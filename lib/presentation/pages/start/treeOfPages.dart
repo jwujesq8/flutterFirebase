@@ -43,17 +43,18 @@ class _TreeOfPagesState extends State<TreeOfPages> {
 
   void navigateToHomePage() {
     Get.offAllNamed('/home');
-    // Navigator.pushReplacement(
+    // Navigator.push(
     //   context,
     //   MaterialPageRoute(builder: (context) => HomePage()),
     // );
   }
 
   void navigateToLoginPage() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    Get.offAllNamed('/login');
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => LoginPage()),
+    // );
   }
 
   @override
